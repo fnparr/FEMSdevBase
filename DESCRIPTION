@@ -1,12 +1,43 @@
 Package: FEMSdevBase
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Provides an API to ACTUS cashflow Generation, liquidity and income plots
+Version: 0.0.1
+Author: Francis Parr, Donat Maier, Nils Bundi 
+Maintainer: Francis Parr <fnparr@gmail.com>
+Description: 
+    FEMSdevBase is similar in functional content to FEMSdevPkg except that it 
+    not include any shiny applications within this. This means that FEMSdevBase
+    can be imported into a shiny app which is then deployed to the Shiny.io 
+    cloud. 
+    The principle exported functions are: 
+    samplePortfolio( ) which reads designated csv files 
+    with Bond portfolio and risk factor data, then creates and returns a 
+    Portfolio object with this contents.  A Portfolio contains all necessary
+    information to request an ACTUS server cashflow event generation for its
+    contracts using the designated scenario i.e. list of Risk factors. The 
+    exported function generateEvents(<portfolio>, <ACTUS-serverURL>)  calls out
+    to an ACTUS server to simulate the contracts of the portfolio using the risk
+    factors in the portfoilio as context getting back a list of cashFlow event 
+    one for each contract. The exported function EventSeries(<Contract>, 
+    <risk-factor-list>, <ACTUS-serverURL> takes as input (1) a single ACTUS 
+    contract, (2) a list of risk factors and an ACTUS server url. It generates 
+    a portfolio containing this single contract then calls generateEvents( ) to
+    have the designated ACTUS server simulate the contract cashflow events. The
+    EventSeries saves the cashflow events of the input contract as a datafram 
+    together with the contractID and its contract type. Exported function 
+    cashflowPlot(<EventSerie>) generates a detailed graphical display of the 
+    events in the input EventSeries. Exported utility function 
+    installSampleData(<mydirectory>) copies samplecsv files with contract 
+    definitions and risk factor date into a sesignated user directory as a model 
+    for how to add data to be processed by these functions. 
+License: GPL ( >=2)
+Imports:
+      ggplot2,
+      httr,
+      jsonlite,
+      methods,
+      timeDate,
+      timeSeries,
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
@@ -22,3 +53,4 @@ Collate:
     'EventSeries.R'
     'ContractPlot.R'
     'ReferenceIndex.R'
+    'util.R'
