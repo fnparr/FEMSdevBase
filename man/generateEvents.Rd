@@ -16,7 +16,7 @@ List of generated cashflow results - one entry per contract
 }
 \description{
 Defines a generic method on S4 Class Portfolio. Instances will call out
-to an ACTUS server at location serverURL to generate cashflow events for 
-contracts in the portfolio using the risk scenario in the portfolio. 
+to an ACTUS server at location serverURL to generate cashflow events for
+contracts in the portfolio using the risk scenario in the portfolio.
 Instances of this generic are: 1. signature ( "Portfolio", serverURL)
 }

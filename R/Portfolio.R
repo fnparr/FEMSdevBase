@@ -20,10 +20,10 @@
 #' @importFrom methods new
 #' @export Portfolio
 #' @exportClass Portfolio
-#' 
+#'
 #' @field contracts  List of contracts, class=ContractType, in the portfolio.
 #' @field riskFactors List of class=ReferenceIndex's defining a risk Scenario.
-#'        possibly better to change to riskFactorIndexList 
+#'        possibly better to change to riskFactorIndexList
 setRefClass("Portfolio",
             fields = list(
               contracts = "list",   # contracts are instances of ContractType
@@ -33,27 +33,27 @@ setRefClass("Portfolio",
 # **************************************
 # constructors Portfolio(...) for a portfolio object
 # *************************************
-#' Portfolio < >  -  generic function definition 
+#' Portfolio < >  -  generic function definition
 #'
 #' Defines generic S4 constructor method on class Portfolio
-#' @param  contract   S4 reference Class=ContractType, a contract to include. 
+#' @param  contract   S4 reference Class=ContractType, a contract to include.
 #' @param  ...        Not used
 setGeneric(name = "Portfolio",
            def = function(contract, ...){
              standardGeneric("Portfolio")
            })
-#' Portfolio ( )  - no parameters instance of Portfolio< > 
-#' 
-#' Creates an empty Portfolio object with no attributes initialized. 
+#' Portfolio ( )  - no parameters instance of Portfolio< >
+#'
+#' Creates an empty Portfolio object with no attributes initialized.
 #' @return  S4 reference with class=Portfolio and no attributes initialized.
 setMethod(f = "Portfolio", signature = c(),
           definition = function( ){
              return(new("Portfolio"))
           })
 #' Portfolio("ContractType")  Constructs Portfolio containing a single contract.
-#' 
-#' This instance of the generic Portfolio< > method takes a reference to a 
-#' contract as its input parameter and returns a portfolio with no defined risk 
+#'
+#' This instance of the generic Portfolio< > method takes a reference to a
+#' contract as its input parameter and returns a portfolio with no defined risk
 #' Scenario and this single contract as its contents
 #' @param contract  S4 reference class=ContractType
 #' @return   S4 reference class=Portfolio, initialized attributes
@@ -66,14 +66,14 @@ setMethod(f = "Portfolio", signature = "ContractType",
           })
 
 #' generateEvents < >     Generic method definition
-#' 
+#'
 #' Defines a generic method on S4 Class Portfolio. Instances will call out
-#' to an ACTUS server at location serverURL to generate cashflow events for 
-#' contracts in the portfolio using the risk scenario in the portfolio. 
+#' to an ACTUS server at location serverURL to generate cashflow events for
+#' contracts in the portfolio using the risk scenario in the portfolio.
 #' Instances of this generic are: 1. signature ( "Portfolio", serverURL)
 #'
 #' @param ptf   S4 reference Class=Portfolio
-#' @param serverURL  character string, the URL of ACTUS server to call out to. 
+#' @param serverURL  character string, the URL of ACTUS server to call out to.
 #' @return          List of generated cashflow results - one entry per contract
 setGeneric(name = "generateEvents",
            def = function(ptf,serverURL,riskFactors){
@@ -81,7 +81,7 @@ setGeneric(name = "generateEvents",
            })
 
 # ************************************************************************
-# generateEvents(<Portfolio>, ServerURL) - instance of generic method 
+# generateEvents(<Portfolio>, ServerURL) - instance of generic method
 # ************************************************************************
 
 #' generateEvents(<portfolio>, <ACTUS-server-URL>)
@@ -135,22 +135,22 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character") ,
         })
 
 # ************************************************************************
-# generateEvents(<Portfolio>, ServerURL, list<riskFactors>) 
+# generateEvents(<Portfolio>, ServerURL, list<riskFactors>)
 #    -- instance of generic method, proto-scenario
 # ************************************************************************
 #' generateEvents(<portfolio>, <ACTUS-server-URL>, list<riskFactors>)
 #'
 #'   The generateEvents(Portfolio, character, list, character) function takes as
-#'   input: (1) an initialized S4 Portfolio of ACTUS contracts, (2) an ACTUS 
-#'   serverURL,  and (3)  a list of riskFactors defining the risk scenario; 
+#'   input: (1) an initialized S4 Portfolio of ACTUS contracts, (2) an ACTUS
+#'   serverURL,  and (3)  a list of riskFactors defining the risk scenario;
 #'   the function constructs a JSON representation of the Portfolio contents and
-#'   risk factors then calls out using https POST to the Actus server at URL 
-#'   serverURL to generate a list of cashflow event lists for each contract in 
+#'   risk factors then calls out using https POST to the Actus server at URL
+#'   serverURL to generate a list of cashflow event lists for each contract in
 #'   the Portfolio using the provided list of riskFctors as scenario data.
 #'
 #' @param ptf    Portfolio S4 object initialized with contract and risk factors
 #' @param serverURL  character - identifies the ACTUS server to be called
-#' @param riskFactors list - list of S4 class riskFactor objects 
+#' @param riskFactors list - list of S4 class riskFactor objects
 #' @return       List of generated cashflow results - one entry per contract
 #' @export
 #' @import    jsonlite
@@ -170,16 +170,16 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character") ,
 setMethod (f = "generateEvents", signature = c("Portfolio","character","list") ,
            definition = function(ptf,serverURL,riskFactors){
              # send input portfolio contracts and riskFactors to server as JSON
-             #  -- ignore riskFactors in the portfolio ! 
+             #  -- ignore riskFactors in the portfolio !
              #  Functional programming construction of preJson for Portfolio
              contractDefs <- lapply(ptf$contracts,preJcontract)
              riskFactors <-  preJSONrfxs(riskFactors)
              fin_list <- list(contracts = contractDefs,
                               riskFactors = riskFactors)
-             
+
              # create final request body in json format
              request_body <- toJSON(fin_list, pretty = TRUE, auto_unbox = FALSE)
-             
+
              # issue POST command to have server generate cashflows
              response_events <- POST(paste0(serverURL, "eventsBatch"),
                                      body = request_body,
@@ -216,10 +216,6 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character","list") ,
 #'    }
 #'
 samplePortfolio <- function(cdfn, rfdfn) {
-  # DEBUG TO BE REMOVED
-  cdfn <- "~/mydata/BondPortfolio.csv"
-  rfdfn <- "~/mydata/RiskFactors.csv"
-  # END DEBUG
   ptf <- Portfolio()            # create portfolio object no attributes set
                                 # read in contract and riskFactor data from
                                 # named files; convert to lists of contract
@@ -233,20 +229,20 @@ samplePortfolio <- function(cdfn, rfdfn) {
 }
 
 #' getContractIDs  <ptf>     Generic method definition
-#' 
-#' Defines a generic method on S4 Class Portfolio. Returns a vector with the 
+#'
+#' Defines a generic method on S4 Class Portfolio. Returns a vector with the
 #' contractIDs of all the contracts in the portfolio.
 #'
 #' @param ptf   S4 reference Class=Portfolio Portfolio with a list of contracts.
-#' @return      A vector of character string contractIDs 
+#' @return      A vector of character string contractIDs
 setGeneric(name = "getContractIDs",
            def = function(ptf) standardGeneric("getContractIDs"))
 
 #' getContractIDs
 #'
 #' getContractIDs(ptf) takes as input an S4 ref to a Class=Portfolio object
-#'     containing a list of contracts. It returns a vector of character string 
-#'     contractID of the contracts in the portfolio. 
+#'     containing a list of contracts. It returns a vector of character string
+#'     contractID of the contracts in the portfolio.
 #'
 #' @param ptf    S4 ref to class=Portfolio object with list of contracts
 #' @return       Vector of character string contractIDs -  one for each contract
@@ -269,32 +265,32 @@ setMethod (f = "getContractIDs", signature = c("Portfolio") ,
 
 
 #' getContract <ptf, cid >     Generic method definition
-#' 
+#'
 #'   Defines a generic method on S4 Class Portfolio also taking character string
-#'   contractID as its second input. Returns an S4 reference to an object of 
-#'   Class=ContractType if the input contractID matches a contract in the 
-#'   Portfolio and NULL if it does not.  
+#'   contractID as its second input. Returns an S4 reference to an object of
+#'   Class=ContractType if the input contractID matches a contract in the
+#'   Portfolio and NULL if it does not.
 #'
 #' @param ptf   S4 reference Class=Portfolio Portfolio with a list of contracts
 #' @param cid   A character string contractID.
-#' @return      An S4 Reference to a portfolio Object if cid is matched or NULL  
-setGeneric(name = "getContract", 
+#' @return      An S4 Reference to a portfolio Object if cid is matched or NULL
+setGeneric(name = "getContract",
            def = function(ptf, cid ) standardGeneric("getContract"))
 
 
-#' getContract(ptf, cid)     
+#' getContract(ptf, cid)
 #'
 #' getContract(ptf, cid) takes as input an S4 ref to a Class=Portfolio object
-#'     containing a list of contracts and a character string contractID. The 
-#'     returns either an S4 ref to a Class=ContractType contract object whose 
+#'     containing a list of contracts and a character string contractID. The
+#'     returns either an S4 ref to a Class=ContractType contract object whose
 #'     contractID the input cid string OR NULL if there is no matching contract
 #'     in the portfolio.
 #'
 #' @param ptf    S4 ref to class=Portfolio object with list of contracts
 #' @param cid    character - a contractID string to be matched
 #' @return       EITHER an S4 Ref to a class=ContractType object with this input
-#'                      cid as its its contractID 
-#'               OR NULL if no such match exists 
+#'                      cid as its its contractID
+#'               OR NULL if no such match exists
 #' @export
 #' @examples {
 #'    mydatadir <- "~/mydata"
@@ -318,9 +314,9 @@ setMethod ( f = "getContract",  signature = c("Portfolio", "character"),
             } )
 
 # ***********************************
-# mergecfls(cfls) : internal function to convert lists of lists of 
+# mergecfls(cfls) : internal function to convert lists of lists of
 #   cashflow events from generateEvents(ptf) to a merged dataframe
-# appends the contractId into each event row 
+# appends the contractId into each event row
 mergecfls <- function(cfls) {
        dfout <- do.call(rbind, lapply(cfls, function(cfl){
           df1 <- as.data.frame(do.call(rbind,cfl$events))
@@ -335,11 +331,11 @@ mergecfls <- function(cfls) {
 
 # *************************
 # monthlyAndCumulatedValue(indf) : internal function to convert a row-per-event
-# dataframe into a row-per-month dataframe with monthly net payoffs and 
+# dataframe into a row-per-month dataframe with monthly net payoffs and
 # month-to-month cumulated value
 # payoff and month to month cumulated payoff
 # input=dataframe with "payoff", "month",  "Date" columns for event data
-#  output= timebucketed dataframe with "Date", "value", "cumValue" for months (with flows)  
+#  output= timebucketed dataframe with "Date", "value", "cumValue" for months (with flows)
 monthlyAndCumulatedValue <- function(indf){
   dfout <- aggregate(indf$payoff, by=list(indf$month), FUN= sum)
   colnames(dfout) <- c("month","value")
@@ -351,27 +347,27 @@ monthlyAndCumulatedValue <- function(indf){
 
 # ************************
 #' simulatePortfolio (ptf, serverURL, riskFactors, scenarioName)
-#' 
+#'
 #'  This functions takes as input (1) a portfolio of ACTUS contracts (2) a list
-#'  of risk factors - the historical and projected future values for interest 
-#'  rates, etc  (3) a URL identifying an ACTUS server to generate cashflow 
+#'  of risk factors - the historical and projected future values for interest
+#'  rates, etc  (3) a URL identifying an ACTUS server to generate cashflow
 #'  events for the contracts and (4) a scenario name. The ACTUS server is
 #'  invoked via an http POST with all required data for the cashflow simulation
 #'  passes as JSON.
-#'  
+#'
 #'  If the cashflow simulation is successful, the returned cashflow events are
-#'  merged into a dataframe sorted by time. Income events and Net capital and 
-#'  interest flows are extracted and  aggregated into monthly time buckets. 
+#'  merged into a dataframe sorted by time. Income events and Net capital and
+#'  interest flows are extracted and  aggregated into monthly time buckets.
 #'  Function ggplot is used to generate graphics for Interest Income by Month,
-#'  Cumulated Income Month by Month, Liquidity Change By Month, and Cumulative 
-#'  Liquidity Position. A vector with these four plots is returned. 
-#'  
+#'  Cumulated Income Month by Month, Liquidity Change By Month, and Cumulative
+#'  Liquidity Position. A vector with these four plots is returned.
+#'
 #'  There may also be riskFactors in the portfolio ptf but they are not used
-#'  
-#' @param ptf    Portfolio of ACTUS contracts to be simulated class=Portfolio 
+#'
+#' @param ptf    Portfolio of ACTUS contracts to be simulated class=Portfolio
 #' @param serverURL    locates ACTUS server to generate cashflow events
 #' @param riskFactors  list of riskFactors class RiskFactor - the scenario
-#' @param scenarioName character   name for the scenario - used in plot title  
+#' @param scenarioName character   name for the scenario - used in plot title
 #'
 #' @return vector of plots: income and liquidity change, monthly and cumulative
 #' @export
@@ -386,34 +382,34 @@ monthlyAndCumulatedValue <- function(indf){
 #'    rfdfn <- "~/mydata/RiskFactors.csv"
 #'    ptf <- samplePortfolio(cdfn,rfdfn)
 #'    falling_fp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
-#'    rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates", 
+#'    rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates",
 #'                                    "YC_EA_AAA",100)
 #'    serverURL <- "https://demo.actusfrf.org:8080/"
 #'    plotlist <- simulatePortfolio(ptf, serverURL, list(rfx_falling),
-#'                                rfx_falling$riskFactorID ) 
-#'    plotlist[["monthly income"]]                               
+#'                                rfx_falling$riskFactorID )
+#'    plotlist[["monthly income"]]
 #' }
 simulatePortfolio <-function(ptf, serverURL, riskFactors, scenarioName){
   cfls <- generateEvents(ptf, serverURL, riskFactors )
-  # merge all cashflow events for the portfolio into one dataframe 
-  dfall <- mergecfls(cfls) 
-  
-  # sort dataframe by date, add Date sortkey 
-  # add a  month charstring  column (for aggregation by month) 
+  # merge all cashflow events for the portfolio into one dataframe
+  dfall <- mergecfls(cfls)
+
+  # sort dataframe by date, add Date sortkey
+  # add a  month charstring  column (for aggregation by month)
   dfall["Date"]<- as.Date(substr(dfall[,"time"],1,10))
-  tsrtall <- dfall[order(dfall$Date),] 
+  tsrtall <- dfall[order(dfall$Date),]
   tsrtall["month"] <- substr(tsrtall[,"time"],1,7)
-  
+
   #  extract income/interestpayment and liquidity/all payoffs subsets
   ipall <- subset(tsrtall, type %in% c("IP","FP","OPS"))
   lqall <- subset(tsrtall, type %in% c("IP","IED","MD"))
-  
+
   # build aggregated dataframes with row per month replacing row per event
-  # columns for monthly sum, and month by month accumulated total 
+  # columns for monthly sum, and month by month accumulated total
   ipMonthly <- monthlyAndCumulatedValue(ipall)
   lqMonthly <- monthlyAndCumulatedValue(lqall)
-  
-  # use ggplot to generate graphic plots for the four cases 
+
+  # use ggplot to generate graphic plots for the four cases
   g_ipm <- ggplot(ipMonthly, aes(x=Date,y=value)) + geom_point(colour = "green") +
        labs(title= paste0("Monthly Interest Income ",scenarioName))
   g_ipc <- ggplot(ipMonthly, aes(x=Date,y=cumValue)) + geom_point(colour="blue") +
@@ -421,13 +417,13 @@ simulatePortfolio <-function(ptf, serverURL, riskFactors, scenarioName){
   g_lqm <- ggplot(lqMonthly, aes(x=Date,y=value)) + geom_point(colour = "brown") +
        labs(title="Monthly Liquidity", subtitle="net Interest + Capital flows")
   g_lqc <- ggplot(lqMonthly, aes(x=Date,y=cumValue)) + geom_point(colour="red") +
-       labs(title="Cumulative Monthly Liquidity", 
+       labs(title="Cumulative Monthly Liquidity",
             subtitle="Net Interest + Capital Flows")
-  
-   #  assemble the plots into a named list and return 
+
+   #  assemble the plots into a named list and return
    plotlist <- list(g_ipm,g_ipc,g_lqm,g_lqc)
-   names(plotlist)  <- c("monthly income", "cumulative income", 
+   names(plotlist)  <- c("monthly income", "cumulative income",
                           "monthly liquidity change", "accumulated liquidity" )
-  
+
    return ( plotlist )
 }

@@ -18,11 +18,11 @@ List of generated cashflow results - one entry per contract
 }
 \description{
 The generateEvents(Portfolio, character, list, character) function takes as
-  input: (1) an initialized S4 Portfolio of ACTUS contracts, (2) an ACTUS 
-  serverURL,  and (3)  a list of riskFactors defining the risk scenario; 
+  input: (1) an initialized S4 Portfolio of ACTUS contracts, (2) an ACTUS
+  serverURL,  and (3)  a list of riskFactors defining the risk scenario;
   the function constructs a JSON representation of the Portfolio contents and
-  risk factors then calls out using https POST to the Actus server at URL 
-  serverURL to generate a list of cashflow event lists for each contract in 
+  risk factors then calls out using https POST to the Actus server at URL
+  serverURL to generate a list of cashflow event lists for each contract in
   the Portfolio using the provided list of riskFctors as scenario data.
 }
 \examples{
