@@ -419,14 +419,19 @@ simulatePortfolio <-function(ptf, serverURL, riskFactors, scenarioName){
 
   # use ggplot to generate graphic plots for the four cases
   g_ipm <- ggplot(ipMonthly, aes(x=Date,y=value)) + geom_point(colour = "green") +
-       labs(title= paste0("Monthly Interest Income ",scenarioName))
+                  geom_line(colour = "black") +
+                  labs(title= paste0("Monthly Interest Income ",scenarioName))
   g_ipc <- ggplot(ipMonthly, aes(x=Date,y=cumValue)) + geom_point(colour="blue") +
-       labs(title="Cumulative Monthly Interest Income")
+                  geom_line(colour = "black") +
+                  labs(title="Cumulative Monthly Interest Income")
   g_lqm <- ggplot(lqMonthly, aes(x=Date,y=value)) + geom_point(colour = "brown") +
-       labs(title="Monthly Liquidity", subtitle="net Interest + Capital flows")
-  g_lqc <- ggplot(lqMonthly, aes(x=Date,y=cumValue)) + geom_point(colour="red") +
-       labs(title="Cumulative Monthly Liquidity",
-            subtitle="Net Interest + Capital Flows")
+                  geom_line(colour = "black") +
+                  labs(title="Monthly Liquidity",
+                       subtitle="net Interest + Capital flows")
+  g_lqc <- ggplot(lqMonthly, aes(x=Date,y=cumValue)) + geom_point(colour="red")  +
+                  geom_line(colour = "black") +
+                  labs(title="Cumulative Monthly Liquidity",
+                       subtitle="Net Interest + Capital Flows")
 
    #  assemble the plots into a named list and return
    plotlist <- list(g_ipm,g_ipc,g_lqm,g_lqc)
