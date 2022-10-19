@@ -122,10 +122,14 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character") ,
             # create final request body in json format
             request_body <- toJSON(fin_list, pretty = TRUE, auto_unbox = FALSE)
 
+            # configure httr to NOT check certificTES on SSL / https connection
+            httr::set_config(httr::config(ssl_verifypeer = 0L,
+                                          ssl_verifyhost = 0L))
+
             # issue POST command to have server generate cashflows
-            response_events <- POST(paste0(serverURL, "eventsBatch"),
-                                    body = request_body,
-                                    content_type_json())
+            response_events <- httr::POST(paste0(serverURL, "eventsBatch"),
+                                          body = request_body,
+                                          content_type_json())
             response_content <- content(response_events)
             if (response_events$status_code != 200) {
               print(response_content$error)
@@ -180,6 +184,10 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character","list") ,
              # create final request body in json format
              request_body <- toJSON(fin_list, pretty = TRUE, auto_unbox = FALSE)
 
+             # configure httr to NOT check certificTES on SSL / https connection
+             httr::set_config(httr::config(ssl_verifypeer = 0L,
+                                           ssl_verifyhost = 0L))
+
              # issue POST command to have server generate cashflows
              response_events <- POST(paste0(serverURL, "eventsBatch"),
                                      body = request_body,
@@ -187,7 +195,7 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character","list") ,
              response_content <- content(response_events)
              if (response_events$status_code != 200) {
                print(response_content$error)
-               stop("ErrorIn::ContractType:: API response error; Check if all necessary contractTerms were set correctly!!!")
+               stop("ErrorIn::ContractType::API response error; Check if all necessary contractTerms were set correctly!!!")
              }
              return(response_content)
            })
