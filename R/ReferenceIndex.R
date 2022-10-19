@@ -36,8 +36,7 @@
 #' @include RiskFactor.R
 #' @import methods
 #' @importFrom methods new
-#' @import timeDate
-#' @import timeSeries
+#' @importFrom timeSeries timeSeries
 #'
 setRefClass("ReferenceIndex", contains = "RiskFactor",
             fields = list( # riskFactorID =  "character"  In RiskFactor parent
