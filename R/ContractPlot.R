@@ -47,7 +47,8 @@ setGeneric(name = "cashflowPlot",
 #' }
 #' @export
 #' @importFrom timeDate as.timeDate
-#' @importFrom graphics abline arrows axis legend mtext par text title
+#' @importFrom graphics arrows axis legend mtext par text title
+# originally @importFrom graphics abline arrows axis legend mtext par text title
 setMethod("cashflowPlot", signature("EventSeries"),
           definition = function(evs){
             # get data.frame of cash flow events from EventSeries
