@@ -2,6 +2,7 @@
 
 export(Portfolio)
 export(bond)
+export(bondvr)
 export(installSampleCode)
 export(installSampleData)
 export(monthlyAverageRate)
