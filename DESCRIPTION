@@ -45,6 +45,7 @@ Collate:
     'ContractABC.R'
     'ContractModel.R'
     'ContractType.R'
+    'Annuity.R'
     'PrincipalAtMaturity.R'
     'bond.R'
     'RiskFactor.R'
@@ -53,4 +54,5 @@ Collate:
     'EventSeries.R'
     'ContractPlot.R'
     'ReferenceIndex.R'
+    'singleContract.R'
     'util.R'
