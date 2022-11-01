@@ -3,15 +3,14 @@
 # Please see accompanying distribution file for license.
 #*************************************************************
 
-# define the generic cashflowPlot(evs) function
-# not appropriate to export this - no value for users to redefine plot
+# define the generic cashflowPlot(evs) function 
+# not appropriate to export this - no value for users to redefine plot 
 #' cashflowPlot < >     generic function to plot cashflow events of a contract
-#'
-#'  The instance of this function is cashflowPlot(\code{\link{EventSeries}})
-#'  where the input \code{\link{EventSeries}} carries cashflow event data for a
+#' 
+#'  The instance of this function is cashflowPlot(\code{\link{EventSeries}}) 
+#'  where the input \code{\link{EventSeries}} carries cashflow event data for a 
 #'  contract to be plotted
-#'
-#' @include EventSeries.R
+#'   
 #' @param evs    S4 reference to \code{\link{EventSeries}} object
 setGeneric(name = "cashflowPlot",
            def = function(evs) {
@@ -20,35 +19,34 @@ setGeneric(name = "cashflowPlot",
 ##############################################################
 #'  cashflowPlot  (evs) - create graphical plot of a contract's cashflow events
 #'
-#'   Creates and displays a graphical representation of the cashflow events in
+#'   Creates and displays a graphical representation of the cashflow events in 
 #'   an  \code{\link{EventSeries}} object. An \code{\link{EventSeries}} captures
 #'   the cashflows of a single ACTUS contract. The exported function
 #'   cashflowPlot(\code{\link{EventSeries}}) displays the cashflow events of the
-#'   contract graphically.
-#'
+#'   contract graphically. 
+#' 
 #'   The graphical representation shows the different types of cashflow event
-#'   such as Principal Payment, Interest Payment, etc. Cashflows are shown
-#'   as directional arrows. Incoming cashflows appear as arrows towards the
-#'   x-axis; outgoing cashflows appear as arrows away from the x-axis.
-#'   A color code indicates the type of the cashflow as described in detail in
-#'   the displayed legend of the plot.
+#'   such as Principal Payment, Interest Payment, etc. Cashflows are shown 
+#'   as directional arrows. Incoming cashflows appear as arrows towards the 
+#'   x-axis; outgoing cashflows appear as arrows away from the x-axis. 
+#'   A color code indicates the type of the cashflow as described in detail in 
+#'   the displayed legend of the plot. 
 #'
 #' @include  EventSeries.R
 #' @include  bond.R
-#' @param evs  a \code{\link{EventSeries}} object with contract events to be
+#' @param evs  a \code{\link{EventSeries}} object with contract events to be 
 #'             plotted
 #' @return   creates  returns a graphical canvas (plot) displayed as plot
 #' @examples {
 #'   pam1      <- bond("2013-12-31", maturity = "5 years", nominal = 50000,
 #'                      coupon = 0.02, couponFreq = "1 years", role = "long")
-#'   serverURL <- "https://demo.actusfrf.org:8080/"
+#'   serverURL <- "https://demo.actusfrf.org:8080/" 
 #'   evs1      <- generateEventSeries(pam1, list(), serverURL)
-#'   cashflowPlot(evs1)
+#'   cashflowPlot(evs1)     
 #' }
 #' @export
 #' @importFrom timeDate as.timeDate
-#' @importFrom graphics arrows axis legend mtext par text title
-# originally @importFrom graphics abline arrows axis legend mtext par text title
+#' @importFrom graphics abline arrows axis legend mtext par text title
 setMethod("cashflowPlot", signature("EventSeries"),
           definition = function(evs){
             # get data.frame of cash flow events from EventSeries
@@ -57,13 +55,13 @@ setMethod("cashflowPlot", signature("EventSeries"),
             # I need to distinguish between single and combined contracts!
             ct <- evs$contractType
             id <- evs$contractID
-  # if there is at least one riskFactor, put its rfID into id which is
-  # used to set the graph title
+  # if there is at least one riskFactor, put its rfID into id which is 
+  # used to set the graph title 
             if (length(evs$riskFactors) >= 1 ) {
                id <- paste0(id, " ",evs$riskFactors[[1]]$riskFactorID)
             }
-  # eventually id should be called graphId, and set scenarioID
-
+  # eventually id should be called graphId, and set scenarioID  
+            
   # we will focus on getting plots for simole contracts but leave in the
   # code for complex case see if it compiles - suspect not helpful FNP
             stopifnot(! ct %in% c("future", "futur", "option", "optns",
@@ -803,7 +801,7 @@ addNotionalPrincipalStateLayer <- function(obj, rawdata, axis) {
     df <- as.data.frame(rawdata)
 
     ## get graphical parameters
-    pars <- getEventParameters()["NominalValue", ]
+    pars <- getEventParameters()["NominalValue", ]  #FNP Nom->nom
 
     ## extract layer relevant data and bring in graphics form
     ## notice that we only need AD0 on Parent level (in a combined contract)
@@ -1063,7 +1061,7 @@ addPrincipalRedemptionLayer <- function(obj, rawdata, axis) {
         ## we always want to have the event name written above the arrow,
         ## no matter what direction it points to (in/outflow). Since, either
         ## yStart or yEnd of an arrow must be 0 by definition, we use their sum
-        text <- as.character(prData$type)
+        text <- as.character(prData$Type)
         x.pos <- prData$x0
         y.pos <- yStart + yEnd + y.scale*y.max/15
         ## do only draw arrows for events with values > 0
