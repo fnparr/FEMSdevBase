@@ -4,8 +4,10 @@
 \alias{mortgage}
 \title{\code{mortgage}}
 \usage{
-mortgage(start, maturity, nominal, coupon, paymentFreq, role, 
-                 rateResetFreq, rateResetSpread )
+{
+          mortgage(start, maturity, nominal, coupon, paymentFreq, role,
+                  rateResetFreq, rateResetSpread )
+       }
 }
 \arguments{
 \item{start}{character string yyyy-mm-dd the start date of the mortgage.}
@@ -14,7 +16,7 @@ mortgage(start, maturity, nominal, coupon, paymentFreq, role,
 
 \item{nominal}{numeric to set the notional principal of the bond,}
 
-\item{coupon}{numeric initial interest rate 0.02 = 2% pa default is 0.0.}
+\item{coupon}{numeric initial interest rate 0.02 = 2 pa default is 0.0.}
 
 \item{paymentFreq}{character string period of payments (interest + principal)}
 
@@ -31,18 +33,18 @@ initialized Annuity contract contract with specified attributes.
 Function mortgage() creates and returns a fixed or variable rate ANN
 }
 \details{
-Convenience function with a simplified parameter list to create and 
+Convenience function with a simplified parameter list to create and
     initialize a single Annuity fixed or variable rate mortgage contract.
 .
-    Variable rate bonds  are identified by a nonnull rateResetFrequency. For 
-    these variable rate bonds the default marketObjectCodeOfRateReset is 
+    Variable rate bonds  are identified by a nonnull rateResetFrequency. For
+    these variable rate bonds the default marketObjectCodeOfRateReset is
     "YC_EA_AAA"
-    
-    Terms statusDate and contractDealDate are set 1 day before start date. 
+
+    Terms statusDate and contractDealDate are set 1 day before start date.
     Term initialExchangeDate is set to start date. The cycleAnchorDates for
-    Interest and principal payments are set at ( IED + a period ). The 
-    maturityDate is set ( IED + Maturity period) defaults are set for 
-    currency, dayCountConvention, Calendar. Role, notionaPrincipal and 
+    Interest and principal payments are set at ( IED + a period ). The
+    maturityDate is set ( IED + Maturity period) defaults are set for
+    currency, dayCountConvention, Calendar. Role, notionaPrincipal and
     nominalInterestRate are set as specified in the parameter list.
 }
 \examples{
