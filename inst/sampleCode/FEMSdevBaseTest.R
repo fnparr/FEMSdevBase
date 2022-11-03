@@ -115,13 +115,13 @@ evs3 <- generateEventSeries(pam3, fallingScenario, serverURL)
 # skipping display of scenario data for now  because done with zoo.plot
 # rather than ggplot2 and also pulls in xts
 
-#creation of the events for the bond under different scenarios
+# 5.  creation of the events for the bond under different scenarios
 evs1 <- generateEventSeries(contract = pam3, risingScenario, serverURL )
 evs2 <- generateEventSeries(contract = pam3, fallingScenario, serverURL )
 evs3 <- generateEventSeries(contract = pam3, steadyScenario, serverURL )
 evs4 <- generateEventSeries(contract = pam3, recoveringScenario, serverURL )
 
-#creation of the desired plots
+# 5.1 creation of the desired plots  bond with differeng scenarios
 cashFlowPlot1 <- cashflowPlot(evs1)
 cashFlowPlot2 <- cashflowPlot(evs2)
 cashFlowPlot3 <- cashflowPlot(evs3)
@@ -133,20 +133,20 @@ evs2$events_df
 evs3$events_df
 evs4$events_df
 
-# Portfolio test start here
-# create the sample portfolio of bonds
-cdfn <- system.file("extdata","BondPortfolio.csv",package = "FEMSdevBase")
+# 6.0  Portfolio test start here
+#  6.1 create the sample portfolio of bonds
+cdfn1 <- system.file("extdata","BondPortfolio.csv",package = "FEMSdevBase")
 rfdfn <- system.file("extdata","RiskFactors.csv",package = "FEMSdevBase")
-ptf   <-  samplePortfolio(cdfn,rfdfn)
+ptf1   <-  samplePortfolio(cdfn1,rfdfn)
 
 #create eventSeries and plots for the portfolio with selected scenario
-plotlist1 <- simulatePortfolio(ptf, serverURL, fallingScenario,
+plotlist1 <- simulatePortfolio(ptf1, serverURL, fallingScenario,
                                rfx_falling$riskFactorID)
-plotlist2 <- simulatePortfolio(ptf, serverURL, risingScenario,
+plotlist2 <- simulatePortfolio(ptf1, serverURL, risingScenario,
                                rfx_rising$riskFactorID)
-plotlist3 <- simulatePortfolio(ptf, serverURL, steadyScenario,
+plotlist3 <- simulatePortfolio(ptf1, serverURL, steadyScenario,
                                rfx_rising$riskFactorID)
-plotlist4 <- simulatePortfolio(ptf, serverURL, recoveringScenario,
+plotlist4 <- simulatePortfolio(ptf1, serverURL, recoveringScenario,
                                rfx_rising$riskFactorID)
 
 analysisType <- c("monthly income","cumulative income",
@@ -154,6 +154,25 @@ analysisType <- c("monthly income","cumulative income",
 
 plotlist1[[analysisType[2]]]
 plotlist2[[analysisType[[3]]]]
+
+#  6.2 create the sample portfolio of mortgages
+cdfn2 <- system.file("extdata","AnnuityPortfolio.csv",package = "FEMSdevBase")
+ptf2   <-  samplePortfolio(cdfn2,rfdfn)
+
+#create eventSeries and plots for the portfolio with selected scenario
+plotlist4 <- simulatePortfolio(ptf2, serverURL, fallingScenario,
+                               rfx_falling$riskFactorID)
+plotlist5 <- simulatePortfolio(ptf2, serverURL, risingScenario,
+                               rfx_rising$riskFactorID)
+plotlist6 <- simulatePortfolio(ptf2, serverURL, steadyScenario,
+                               rfx_rising$riskFactorID)
+plotlist7 <- simulatePortfolio(ptf2, serverURL, recoveringScenario,
+                               rfx_rising$riskFactorID)
+
+plotlist4[[analysisType[2]]]
+plotlist5[[analysisType[[3]]]]
+
+# 7.0 Testing of the rate plots ( and plot performance )
 
 steadyRates <-      read.csv(system.file("extdata", "UST5Y_steadyRates.csv",
                                            package = "FEMSdevBase"))
