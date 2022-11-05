@@ -6,12 +6,12 @@ rm(list=ls())
 serverURL <- "https://demo.actusfrf.org:8080/"
 cntr1 <- loan("PAM","2013-12-31", maturity= "5 years", nominal= 1000,
               coupon = 0.02, paymentFreq= "1 year", role= "long",
-              rateResetFreq= "Fixed rate")
+              rateResetFreq= "1 year", rateResetSpread= 0.05)
 unlist(cntr1$contractTerms)
 
 cntr2 <- loan("ANN","2013-12-31", maturity= "5 years", nominal= 1000,
               coupon= 0.02, paymentFreq = "1 year", role= "long",
-              rateResetFreq = "Fixed rate")
+              rateResetFreq = "6 months", rateResetSpread= 0.045)
 unlist(cntr2$contractTerms)
 
 # 1.0 fixed rate bond with bondvr cashflow and plot

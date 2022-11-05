@@ -142,7 +142,8 @@ mortgage <- function(start, maturity, nominal, coupon, paymentFreq, role,
                   lubridate::add_with_rollback(startDate, rrPeriod)
      ann1$contractTerms[["cycleOfRateReset"]] <- rrPcode
      ann1$contractTerms[["marketObjectCodeOfRateReset"]] <- "YC_EA_AAA"
-  }
+     ann1$contractTerms[["rateSpread"]]<- rateResetSpread
+     }
 
   return(ann1)
 }
@@ -245,6 +246,7 @@ bondvr <- function(start, maturity, nominal, coupon, paymentFreq, role,
       lubridate::add_with_rollback(startDate,period(rateResetFreq))
     bnd1$contractTerms[["cycleOfRateReset"]] <- rrPcode
     bnd1$contractTerms[["marketObjectCodeOfRateReset"]] <- "YC_EA_AAA"
+    bnd1$contractTerms[["rateSpread"]]<- rateResetSpread
   }
 
   return(bnd1)
