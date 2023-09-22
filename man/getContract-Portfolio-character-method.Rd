@@ -13,13 +13,13 @@
 }
 \value{
 EITHER an S4 Ref to a class=ContractType object with this input
-                     cid as its its contractID
+                     cid as its its contractID 
               OR NULL if no such match exists
 }
 \description{
 getContract(ptf, cid) takes as input an S4 ref to a Class=Portfolio object
-    containing a list of contracts and a character string contractID. The
-    returns either an S4 ref to a Class=ContractType contract object whose
+    containing a list of contracts and a character string contractID. The 
+    returns either an S4 ref to a Class=ContractType contract object whose 
     contractID the input cid string OR NULL if there is no matching contract
     in the portfolio.
 }
@@ -28,8 +28,7 @@ getContract(ptf, cid) takes as input an S4 ref to a Class=Portfolio object
    mydatadir <- "~/mydata"
    installSampleData(mydatadir)
    cdfn  <- "~/mydata/BondPortfolio.csv"
-   rfdfn <- "~/mydata/RiskFactors.csv"
-   ptf <- samplePortfolio(cdfn,rfdfn)
+   ptf <- samplePortfolio(cdfn)
    cids <- getContractIDs(ptf)
    cntr <- getContract(ptf, cids[1])
    }

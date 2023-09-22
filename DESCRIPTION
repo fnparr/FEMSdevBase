@@ -41,19 +41,20 @@ Imports:
       lubridate
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Collate: 
-    'ContractABC.R'
     'ContractModel.R'
+    'ContractABC.R'
     'ContractType.R'
     'Annuity.R'
+    'ContractLeg.R'
     'PrincipalAtMaturity.R'
-    'bond.R'
+    'singleContract.R'
     'RiskFactor.R'
     'import.R'
     'Portfolio.R'
     'EventSeries.R'
     'ContractPlot.R'
+    'Option.R'
     'ReferenceIndex.R'
-    'singleContract.R'
     'util.R'

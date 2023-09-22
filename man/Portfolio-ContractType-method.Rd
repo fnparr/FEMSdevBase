@@ -13,7 +13,7 @@
 S4 reference class=Portfolio, initialized attributes
 }
 \description{
-This instance of the generic Portfolio< > method takes a reference to a
-contract as its input parameter and returns a portfolio with no defined risk
-Scenario and this single contract as its contents
+This instance of the generic Portfolio< > method takes a reference to a 
+contract as its input parameter and returns a portfolio with this single  
+contract as its contents
 }
