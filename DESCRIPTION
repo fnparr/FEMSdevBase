@@ -1,7 +1,7 @@
 Package: FEMSdevBase
 Type: Package
 Title: Provides an API to ACTUS cashflow Generation, liquidity and income plots
-Version: 0.0.2
+Version: 0.0.4
 Author: Francis Parr, Donat Maier, Nils Bundi 
 Maintainer: Francis Parr <fnparr@gmail.com>
 Description: 
@@ -25,11 +25,16 @@ Description:
     have the designated ACTUS server simulate the contract cashflow events. The
     EventSeries saves the cashflow events of the input contract as a datafram 
     together with the contractID and its contract type. Exported function 
-    cashflowPlot(<EventSerie>) generates a detailed graphical display of the 
+    cashflowPlot(<EventSeries>) generates a detailed graphical display of the 
     events in the input EventSeries. Exported utility function 
     installSampleData(<mydirectory>) copies samplecsv files with contract 
-    definitions and risk factor date into a sesignated user directory as a model 
-    for how to add data to be processed by these functions. 
+    definitions and risk factor date into a designated user directory as a model 
+    for how to add data to be processed by these functions. Exported utility
+    function csvx2ptf(fnameIn) processes an Excel generated csv file with 
+    ACTUS specifications for a collection of contracts; it returns a class 
+    Portfolio object containing the contracts specified in the input file 
+    information but with all date values in " yyyy-mm-dd" format (note the 
+    leading space character).      
 License: GPL ( >=2)
 Imports:
       ggplot2,
@@ -38,7 +43,8 @@ Imports:
       methods,
       timeDate,
       timeSeries,
-      lubridate
+      lubridate,
+      TAF
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
