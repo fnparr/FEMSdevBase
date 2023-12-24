@@ -222,8 +222,6 @@ datarow2Contract<- function(terms_df, legs_df,irow){
 # *********************************************************
 # installSampleData(<directory-file-path>)
 # ****************
-
-# ***********************************************
 #' installSampleData
 #'
 #'  This function copies sample csv data files into a user selected directory
@@ -286,19 +284,6 @@ installSampleData <- function (mydatadir){
 #'   installSampleCode(demodir)
 #'   }
 #'
-installSampleData <-function (mydatadir){
-  for (fn in  c("BondPortfolio.csv","AnnuityPortfolio.csv",
-                "OptionsPortfolio.csv", "RiskFactors.csv",
-                "UST5Y_fallingRates.csv", "UST5Y_recoveringRates.csv",
-                "UST5Y_risingRates.csv", "UST5Y_steadyRates.csv",
-                "testptf1.csv", "testptf2.csv")) {
-    pn <- paste0(mydatadir,"/",fn)
-    file.copy(from = system.file("extdata",fn, package = "FEMSdevBase"),
-              to = pn, overwrite = TRUE, copy.mode = TRUE, copy.date = TRUE)
-  }
-}
-
-
 installSampleCode <- function (demodir){
     pn <- paste0(demodir,"/","introductoryDemo.R")
     file.copy(from = system.file("code-examples","introductoryDemo.R",

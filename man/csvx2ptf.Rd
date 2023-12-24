@@ -44,7 +44,9 @@ Function csvx2ptf returns an initialized portfolio object populated with
 }
 \examples{
 {
-  fname <- "./inst/extdata/testptf2.csv"
+  datadir <- "~/mydata"
+  installSampleData(datadir)
+  fname <- "~/mydata/testptf2.csv"
   ptf1 <- csvx2ptf(fname)
 }
 
