@@ -48,8 +48,10 @@ library(TAF)
 #' @export
 #' @importFrom    TAF dos2unix
 #' @examples {
-#'   fname <- "~/ActusSupport/Test/b7xPortfolio.csv"
-#'   ptf1 <- xlsx2ptf(fname)
+#'   datadir <- "~/mydata"
+#'   installSampleData(datadir)
+#'   fname <- "~/mydata/testptf2.csv"
+#'   ptf1 <- csvx2ptf(fname)
 #' }
 #'
   csvx2ptf <- function (fnameIn) {
@@ -224,7 +226,7 @@ datarow2Contract<- function(terms_df, legs_df,irow){
 # ***********************************************
 #' installSampleData
 #'
-#'  This function copies asample csv data files into a user selected directory
+#'  This function copies sample csv data files into a user selected directory
 #'  where they can be easily inspected or modified. This demonstrates the
 #'  required format for additional contract and riskFactor data files to be
 #'  used in FEMSdev Pkg requests
@@ -255,7 +257,8 @@ installSampleData <- function (mydatadir){
   for (fn in  c("BondPortfolio.csv","AnnuityPortfolio.csv",
                 "OptionsPortfolio.csv", "RiskFactors.csv",
                 "UST5Y_fallingRates.csv", "UST5Y_recoveringRates.csv",
-                "UST5Y_risingRates.csv", "UST5Y_steadyRates.csv")) {
+                "UST5Y_risingRates.csv", "UST5Y_steadyRates.csv",
+                "testptf1.csv", "testptf2.csv")) {
     pn <- paste0(mydatadir,"/",fn)
     file.copy(from = system.file("extdata",fn, package = "FEMSdevPkg"),
               to = pn, overwrite = TRUE, copy.mode = TRUE, copy.date = TRUE)
@@ -283,6 +286,19 @@ installSampleData <- function (mydatadir){
 #'   installSampleCode(demodir)
 #'   }
 #'
+installSampleData <-function (mydatadir){
+  for (fn in  c("BondPortfolio.csv","AnnuityPortfolio.csv",
+                "OptionsPortfolio.csv", "RiskFactors.csv",
+                "UST5Y_fallingRates.csv", "UST5Y_recoveringRates.csv",
+                "UST5Y_risingRates.csv", "UST5Y_steadyRates.csv",
+                "testptf1.csv", "testptf2.csv")) {
+    pn <- paste0(mydatadir,"/",fn)
+    file.copy(from = system.file("extdata",fn, package = "FEMSdevBase"),
+              to = pn, overwrite = TRUE, copy.mode = TRUE, copy.date = TRUE)
+  }
+}
+
+
 installSampleCode <- function (demodir){
     pn <- paste0(demodir,"/","introductoryDemo.R")
     file.copy(from = system.file("code-examples","introductoryDemo.R",
