@@ -72,6 +72,11 @@ library(TAF)
     cntrTermLoL <-  lapply(split(df1,seq(nrow(df1))), as.list)
     ptf <- Portfolio()
     ptf$contracts <- lapply(cntrTermLoL,importContract)
+    # following line seems to convert the contracts List in portfolio
+    # from having named "1","2", ... elements to indexable [1], [2]. [3]
+    # seems to avoid an error in running the ACTUS simulation
+    # maybe using something other than seq(nrow(df1)) in split would fix ???
+    names(ptf$contracts) <- NULL
     return (ptf)
 }
 
