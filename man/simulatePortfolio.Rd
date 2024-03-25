@@ -33,16 +33,13 @@ If the cashflow simulation is successful, the returned cashflow events are
  Function ggplot is used to generate graphics for Interest Income by Month,
  Cumulated Income Month by Month, Liquidity Change By Month, and Cumulative
  Liquidity Position. A vector with these four plots is returned.
-
- There may also be riskFactors in the portfolio ptf but they are not used
 }
 \examples{
 {
    mydatadir <- "~/mydata"
    installSampleData(mydatadir)
    cdfn  <- "~/mydata/BondPortfolio.csv"
-   rfdfn <- "~/mydata/RiskFactors.csv"
-   ptf <- samplePortfolio(cdfn,rfdfn)
+   ptf <- samplePortfolio(cdfn)
    falling_fp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
    rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates",
                                    "YC_EA_AAA",100)

@@ -4,7 +4,7 @@
 # **************************************************
 # defines: class Portfolio, Portfolio() constructor,
 #    add(<portfolio>,<contract_list>), set(<portfolio>,<rfconn>)
-#    generateEvents(<portfolio>, <serverURL>)
+#    generateEvents(<portfolio>, <serverURL>,<riskFactorList>)
 #    samplePortfolio(<contractDataFilename>)
 
 # *********************************************************************
@@ -12,9 +12,8 @@
 # *************************************
 #' class Portfolio
 #'
-#' A Portfolio consists of a list of contracts and a list of riskFactors
-#' defining a scenario, A portfolio argument can be used as the input
-#' parameter for a generateEvents( ) request
+#' A Portfolio consists of a list of contracts. This is one of the required
+#' input parameter for a generateEvents(portfolio, scenario) request
 #' @include ContractType.R
 #' @import methods
 #' @importFrom methods new
@@ -22,12 +21,10 @@
 #' @exportClass Portfolio
 #'
 #' @field contracts  List of contracts, class=ContractType, in the portfolio.
-#' @field riskFactors List of class=ReferenceIndex's defining a risk Scenario.
-#'        possibly better to change to riskFactorIndexList
+#'
 setRefClass("Portfolio",
             fields = list(
-              contracts = "list",   # contracts are instances of ContractType
-              riskFactors = "list"  #  ReferenceIndexList with moc
+              contracts = "list"   # contracts are instances of ContractType
             ))
 
 # **************************************
@@ -53,15 +50,13 @@ setMethod(f = "Portfolio", signature = c(),
 #' Portfolio("ContractType")  Constructs Portfolio containing a single contract.
 #'
 #' This instance of the generic Portfolio< > method takes a reference to a
-#' contract as its input parameter and returns a portfolio with no defined risk
-#' Scenario and this single contract as its contents
+#' contract as its input parameter and returns a portfolio with this single contract as its contents
 #' @param contract  S4 reference class=ContractType
 #' @return   S4 reference class=Portfolio, initialized attributes
 setMethod(f = "Portfolio", signature = "ContractType",
           definition = function (contract) {
           ptf <- Portfolio()
           ptf$contracts = list(contract)
-          ptf$riskFactors <- list()
           return(ptf)
           })
 
@@ -70,13 +65,15 @@ setMethod(f = "Portfolio", signature = "ContractType",
 #' Defines a generic method on S4 Class Portfolio. Instances will call out
 #' to an ACTUS server at location serverURL to generate cashflow events for
 #' contracts in the portfolio using the risk scenario in the portfolio.
-#' Instances of this generic are: 1. signature ( "Portfolio", serverURL)
+#' Instances of this generic are:
+#'signature ( "Portfolio", serverURL, riskFactors,...)
 #'
 #' @param ptf   S4 reference Class=Portfolio
 #' @param serverURL  character string, the URL of ACTUS server to call out to.
+#' @param riskfactors list of S4 Class=ReferenceIndex
 #' @return          List of generated cashflow results - one entry per contract
 setGeneric(name = "generateEvents",
-           def = function(ptf,serverURL,riskFactors){
+           def = function(ptf,serverURL,riskFactors,...){
              standardGeneric("generateEvents")
            })
 
@@ -164,7 +161,7 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character") ,
 #'    installSampleData(mydatadir)
 #'    cdfn  <- "~/mydata/BondPortfolio.csv"
 #'    rfdfn <- "~/mydata/RiskFactors.csv"
-#'    ptf   <-  samplePortfolio(cdfn,rfdfn)
+#'    ptf   <-  samplePortfolio(cdfn)
 #'    serverURL <- "https://demo.actusfrf.org:8080/"
 #'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
@@ -205,11 +202,10 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character","list") ,
 # ************************************************************
 #' samplePortFolio
 #'
-#' samplePortfolio ( cdfn, rdfn ) takes as input a contracts-data-filepath and
-#'     riskfactor- data-filepath, reads this data and returns an initialized
-#'     Portfolio object with contracts and risk factors from these csv files.
+#' samplePortfolio ( cdfn) takes as input a contracts-data-filepath
+#'     reads this data and returns an initialized Portfolio object with
+#'     contracts from the csv file.
 #' @param cdfn      character string -  a contract-data-filepath
-#' @param rfdfn     character string -  a riskfactor-data-filepath
 #'
 #' @return   Portfolio s4 object initialized with the data from the input files
 #' @export
@@ -219,17 +215,15 @@ setMethod (f = "generateEvents", signature = c("Portfolio","character","list") ,
 #'    mydatadir <- "~/mydata"
 #'    installSampleData(mydatadir)
 #'    cdfn  <- "~/mydata/BondPortfolio.csv"
-#'    rfdfn <- "~/mydata/RiskFactors.csv"
-#'    ptf <- samplePortfolio(cdfn,rfdfn)
+#'    ptf <- samplePortfolio(cdfn)
 #'    }
 #'
-samplePortfolio <- function(cdfn, rfdfn) {
+samplePortfolio <- function(cdfn) {
   ptf <- Portfolio()            # create portfolio object no attributes set
                                 # read in contract and riskFactor data from
                                 # named files; convert to lists of contract
                                 # and riskFactor objects
                                 # riskfactors first - contract.moc valid check
-  ptf$riskFactors <- riskFactors_df2list(riskFile2dataframe(rfdfn))
   ptf$contracts <-   contracts_df2list(contractFile2dataframe(cdfn))
                                 # portfolio is now initialized and ready for
                                 # cashflow generation
@@ -260,8 +254,7 @@ setGeneric(name = "getContractIDs",
 #'    mydatadir <- "~/mydata"
 #'    installSampleData(mydatadir)
 #'    cdfn  <- "~/mydata/BondPortfolio.csv"
-#'    rfdfn <- "~/mydata/RiskFactors.csv"
-#'    ptf <- samplePortfolio(cdfn,rfdfn)
+#'    ptf <- samplePortfolio(cdfn)
 #'    cids <- getContractIDs(ptf)
 #'    }
 #'
@@ -304,8 +297,7 @@ setGeneric(name = "getContract",
 #'    mydatadir <- "~/mydata"
 #'    installSampleData(mydatadir)
 #'    cdfn  <- "~/mydata/BondPortfolio.csv"
-#'    rfdfn <- "~/mydata/RiskFactors.csv"
-#'    ptf <- samplePortfolio(cdfn,rfdfn)
+#'    ptf <- samplePortfolio(cdfn)
 #'    cids <- getContractIDs(ptf)
 #'    cntr <- getContract(ptf, cids[1])
 #'    }
@@ -370,7 +362,6 @@ monthlyAndCumulatedValue <- function(indf){
 #'  Cumulated Income Month by Month, Liquidity Change By Month, and Cumulative
 #'  Liquidity Position. A vector with these four plots is returned.
 #'
-#'  There may also be riskFactors in the portfolio ptf but they are not used
 #'
 #' @param ptf    Portfolio of ACTUS contracts to be simulated class=Portfolio
 #' @param serverURL    locates ACTUS server to generate cashflow events
@@ -387,8 +378,7 @@ monthlyAndCumulatedValue <- function(indf){
 #'    mydatadir <- "~/mydata"
 #'    installSampleData(mydatadir)
 #'    cdfn  <- "~/mydata/BondPortfolio.csv"
-#'    rfdfn <- "~/mydata/RiskFactors.csv"
-#'    ptf <- samplePortfolio(cdfn,rfdfn)
+#'    ptf <- samplePortfolio(cdfn)
 #'    falling_fp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
 #'    rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates",
 #'                                    "YC_EA_AAA",100)

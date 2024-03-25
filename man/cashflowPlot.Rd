@@ -10,7 +10,7 @@ cashflowPlot(evs)
 \item{evs}{S4 reference to \code{\link{EventSeries}} object}
 }
 \description{
-The instance of this function is cashflowPlot(\code{\link{EventSeries}}) 
- where the input \code{\link{EventSeries}} carries cashflow event data for a 
+The instance of this function is cashflowPlot(\code{\link{EventSeries}})
+ where the input \code{\link{EventSeries}} carries cashflow event data for a
  contract to be plotted
 }

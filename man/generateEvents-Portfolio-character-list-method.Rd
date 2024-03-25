@@ -31,7 +31,7 @@ The generateEvents(Portfolio, character, list, character) function takes as
    installSampleData(mydatadir)
    cdfn  <- "~/mydata/BondPortfolio.csv"
    rfdfn <- "~/mydata/RiskFactors.csv"
-   ptf   <-  samplePortfolio(cdfn,rfdfn)
+   ptf   <-  samplePortfolio(cdfn)
    serverURL <- "https://demo.actusfrf.org:8080/"
    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)

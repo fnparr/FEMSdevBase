@@ -170,7 +170,7 @@ riskFactors_df2list <- function(riskFactors_df){
            # vector of numeric values
       rfID <- paste0("sample$",rfRow$marketObjectCode)
       rfxlist <-append(rfxlist,
-                       Index(rfID,rfRow$marketObjectCode,rfRow$base,,
+                       Index(rfID,rfRow$marketObjectCode,rfRow$base,
                              tset,vset))
       }
   return(rfxlist)
