@@ -146,7 +146,7 @@ evs4$events_df
 #  6.1 create the sample portfolio of bonds
 cdfn1 <- system.file("extdata","BondPortfolio.csv",package = "FEMSdevBase")
 rfdfn <- system.file("extdata","RiskFactors.csv",package = "FEMSdevBase")
-ptf1   <-  samplePortfolio(cdfn1,rfdfn)
+ptf1   <-  samplePortfolio(cdfn1)
 
 #create eventSeries and plots for the portfolio with selected scenario
 plotlist1 <- simulatePortfolio(ptf1, serverURL, fallingScenario,
@@ -166,7 +166,7 @@ plotlist2[[analysisType[[3]]]]
 
 #  6.2 create the sample portfolio of mortgages
 cdfn2 <- system.file("extdata","AnnuityPortfolio.csv",package = "FEMSdevBase")
-ptf2   <-  samplePortfolio(cdfn2,rfdfn)
+ptf2   <-  samplePortfolio(cdfn2)
 
 #create eventSeries and plots for the portfolio with selected scenario
 plotlist4 <- simulatePortfolio(ptf2, serverURL, fallingScenario,
