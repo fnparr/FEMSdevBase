@@ -15,7 +15,7 @@ Vector of character string contractIDs -  one for each contract
 }
 \description{
 getContractIDs(ptf) takes as input an S4 ref to a Class=Portfolio object
-    containing a list of contracts. It returns a vector of character string
+    containing a list of contracts. It returns a vector of character string 
     contractID of the contracts in the portfolio.
 }
 \examples{

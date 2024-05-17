@@ -16,7 +16,7 @@ An S4 Reference to a portfolio Object if cid is matched or NULL
 }
 \description{
 Defines a generic method on S4 Class Portfolio also taking character string
-  contractID as its second input. Returns an S4 reference to an object of
-  Class=ContractType if the input contractID matches a contract in the
+  contractID as its second input. Returns an S4 reference to an object of 
+  Class=ContractType if the input contractID matches a contract in the 
   Portfolio and NULL if it does not.
 }

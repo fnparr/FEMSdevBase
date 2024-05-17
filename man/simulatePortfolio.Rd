@@ -20,19 +20,20 @@ vector of plots: income and liquidity change, monthly and cumulative
 }
 \description{
 This functions takes as input (1) a portfolio of ACTUS contracts (2) a list
- of risk factors - the historical and projected future values for interest
- rates, etc  (3) a URL identifying an ACTUS server to generate cashflow
+ of risk factors - the historical and projected future values for interest 
+ rates, etc  (3) a URL identifying an ACTUS server to generate cashflow 
  events for the contracts and (4) a scenario name. The ACTUS server is
  invoked via an http POST with all required data for the cashflow simulation
  passes as JSON.
-}
-\details{
-If the cashflow simulation is successful, the returned cashflow events are
- merged into a dataframe sorted by time. Income events and Net capital and
- interest flows are extracted and  aggregated into monthly time buckets.
+ 
+ If the cashflow simulation is successful, the returned cashflow events are
+ merged into a dataframe sorted by time. Income events and Net capital and 
+ interest flows are extracted and  aggregated into monthly time buckets. 
  Function ggplot is used to generate graphics for Interest Income by Month,
- Cumulated Income Month by Month, Liquidity Change By Month, and Cumulative
- Liquidity Position. A vector with these four plots is returned.
+ Cumulated Income Month by Month, Liquidity Change By Month, and Cumulative 
+ Liquidity Position. A vector with these four plots is returned. 
+ 
+ There may also be riskFactors in the portfolio ptf but they are not used
 }
 \examples{
 {
@@ -41,11 +42,11 @@ If the cashflow simulation is successful, the returned cashflow events are
    cdfn  <- "~/mydata/BondPortfolio.csv"
    ptf <- samplePortfolio(cdfn)
    falling_fp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
-   rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates",
+   rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates", 
                                    "YC_EA_AAA",100)
-   serverURL <- "https://demo.actusfrf.org:8080/"
+   serverURL <- "http://ractus.ch:8080/"
    plotlist <- simulatePortfolio(ptf, serverURL, list(rfx_falling),
-                               rfx_falling$riskFactorID )
-   plotlist[["monthly income"]]
+                               rfx_falling$riskFactorID ) 
+   plotlist[["monthly income"]]                               
 }
 }

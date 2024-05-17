@@ -7,14 +7,14 @@
 \S4method{cashflowPlot}{EventSeries}(evs)
 }
 \arguments{
-\item{evs}{a \code{\link{EventSeries}} object with contract events to be
+\item{evs}{a \code{\link{EventSeries}} object with contract events to be 
 plotted}
 }
 \value{
 creates  returns a graphical canvas (plot) displayed as plot
 }
 \description{
-Creates and displays a graphical representation of the cashflow events in
+Creates and displays a graphical representation of the cashflow events in 
   an  \code{\link{EventSeries}} object. An \code{\link{EventSeries}} captures
   the cashflows of a single ACTUS contract. The exported function
   cashflowPlot(\code{\link{EventSeries}}) displays the cashflow events of the
@@ -22,18 +22,18 @@ Creates and displays a graphical representation of the cashflow events in
 }
 \details{
 The graphical representation shows the different types of cashflow event
-  such as Principal Payment, Interest Payment, etc. Cashflows are shown
-  as directional arrows. Incoming cashflows appear as arrows towards the
-  x-axis; outgoing cashflows appear as arrows away from the x-axis.
-  A color code indicates the type of the cashflow as described in detail in
+  such as Principal Payment, Interest Payment, etc. Cashflows are shown 
+  as directional arrows. Incoming cashflows appear as arrows towards the 
+  x-axis; outgoing cashflows appear as arrows away from the x-axis. 
+  A color code indicates the type of the cashflow as described in detail in 
   the displayed legend of the plot.
 }
 \examples{
 {
   pam1      <- bondvr("2013-12-31", maturity = "5 years", nominal = 50000,
                      coupon = 0.02, paymentFreq = "1 years", role = "long")
-  serverURL <- "https://demo.actusfrf.org:8080/"
+  serverURL <- "http://ractus.ch:8080/"  
   evs1      <- generateEventSeries(pam1, list(), serverURL)
-  cashflowPlot(evs1)
+  cashflowPlot(evs1)     
 }
 }

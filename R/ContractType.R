@@ -34,6 +34,7 @@ setRefClass("ContractType",
                 contractStructure = "list"  # of contract legs
             ))
 
+
 setGeneric(name = "CT",
            def = function(contractType){
              standardGeneric("CT")
@@ -55,14 +56,14 @@ setGeneric(name = "ContractType",
            })
 
 setMethod(f = "ContractType", signature = c("list"),
-            definition = function(termList) {
-              cntr1 <- new( longName(tolower(termList$contractType)))
-              cntr1$contractTerms<- termList
-              cntr1$isCompound <- FALSE
-              cntr1$contractStructure <- list()
-              return( cntr1 )
-            }
-          )
+          definition = function(termList) {
+            cntr1 <- new( longName(tolower(termList$contractType)))
+            cntr1$contractTerms<- termList
+            cntr1$isCompound <- FALSE
+            cntr1$contractStructure <- list()
+            return( cntr1 )
+          })
+
 # FNP is set(object, xxx) a default generic on reference Classes
 
 setMethod(f = "set", signature = c("ContractType", "list"),

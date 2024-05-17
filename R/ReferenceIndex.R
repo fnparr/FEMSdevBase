@@ -36,17 +36,17 @@
 #' @include RiskFactor.R
 #' @import methods
 #' @importFrom methods new
-#' @importFrom timeSeries timeSeries
+#' @import timeSeries
 #'
 setRefClass("ReferenceIndex", contains = "RiskFactor",
             fields = list( # riskFactorID =  "character"  In RiskFactor parent
-                           marketObjectCode = "character",
-                           base  = "numeric",
-                           data =  "timeSeries"
+                           marketObjectCode = "character", 
+                           base  = "numeric",  
+                           data =  "timeSeries" 
             ))
 
 setGeneric(name = "Index",
-           def = function(rfID, moc, base, timeSeries,
+           def = function(rfID, moc, base, timeSeries, 
                           dates, values, fname, ...) standardGeneric("Index") )
 
 # constructor with rfID label, base and timeSeries data
@@ -63,7 +63,7 @@ setMethod(f = "Index", signature = c("character", "character","numeric",
 # constructor with label, base, vector of dates, vector of values
 # builds the data TimeSeries from date qnd value columns
 setMethod(f = "Index", signature =
-                 c("character", "character", "numeric", "missing",
+                 c("character", "character", "numeric", "missing", 
                    "character","numeric") ,
           definition= function(rfID, moc, base, dates, values) {
             rfx <- new("ReferenceIndex")
@@ -86,7 +86,7 @@ setMethod(f = "Index", signature =
 #     need unbox( ) for singleton values
 #     timeSeries optimizes times, no renaming time col etc
 #     time() extracts vector of times; format() converts to chars
-#     paste0 to append T00:00:00 expected by Actus; reference Index list is
+#     paste0 to append T00:00:00 expected by Actus; reference Index list is 
 #     organized
 #     as list of names with unboxed values, embedded dataframe is allowed
 #     a rFConn had to be a dataframe with unnamed column of risked factors
@@ -117,15 +117,15 @@ preJSONrfxs <- function(rfxs) {         # work directly on riskFactors list
 # ************************************
 
 #'  sampleReferenceIndex     (rxdfp,rfID, moc, base)
-#'
-#'     Function to read a csv file with a column of yyyy-mm-dd dates, and a
-#'     column of interest rate values. A marketObjectCode, a riskFactorID and
+#'  
+#'     Function to read a csv file with a column of yyyy-mm-dd dates, and a 
+#'     column of interest rate values. A marketObjectCode, a riskFactorID and 
 #'     a numeric base value. The function returns an S4 ref to an object with
-#'     class=ReferenceIndex. The marketObjectCode is the identifier used in
+#'     class=ReferenceIndex. The marketObjectCode is the identifier used in 
 #'     variable rate contracts to specify a dependency on this ReferenceIndex
-#'     for setting a nominal interest rate.  The numeric value base should have
-#'     value 100 if a 3.1% interest rate appears as 3.1 in the csv file, and
-#'     value 1.0 if that rate appears as 0.031. Input parameter rfID will be
+#'     for setting a nominal interest rate.  The numeric value base should have 
+#'     value 100 if a 3.1% interest rate appears as 3.1 in the csv file, and 
+#'     value 1.0 if that rate appears as 0.031. Input parameter rfID will be 
 #'     set as the unique riskFactorID of the returned ReferenceIndex object.
 #'     Examples of csv files formatted with Dates and Values for ReferenceIndex
 #'     creation in the sample data are: UST5Y_fallingRates.csv,
@@ -147,31 +147,56 @@ preJSONrfxs <- function(rfxs) {         # work directly on riskFactors list
 sampleReferenceIndex <- function(rxdfp, rfID, moc, base){
    rxddf <- utils::read.csv(file = rxdfp, header=TRUE)
    rfx <- Index(rfID,moc, base,,rxddf$Date,rxddf$Rate)
-   return(rfx)
-}
+   return(rfx) 
+} 
 
+# ************************************
 
-# *******************************
-# FNP inderited functions not used
-#
-# DEBUG COMMENT OUT
-#setMethod(f = "valueAt", signature = c("ReferenceIndex", "character"),
-#          definition = function(object, at, ...){
-#            datums <- sort(as.Date(unlist(rownames(object$Data))))
-#            bool_matrix <- t(sapply(at, function(x) datums <= as.Date(x)))
-#            indices <- unname(apply(bool_matrix,1,function(x) max(which(x))))
-#            return(object$Data[,"Values"][indices])
-#         })
-# END DEBUG comment out
-# FNP comment out the show function below which seems to have an issue
-# not aware of any use in FEMSdev01
-# setMethod(f = "show", signature = c("ReferenceIndex"),
-#          definition = function(object){
-#            cat(paste0("Label: ", object$label,", Base: ",object$base,"\n"))
-#            print("Time Series:")
-#            print(object$data)
-#          })
-
+#'  sampleReferenceIndexList(rfxsfn)
+#'  
+#'     Function to read a csv file with data specifying a collection of 
+#'     RiskFactorIndexes. Each record in the csv file defines a different 
+#'     RiskFactorIndex. The columns in the csv file are: (1) rfType,
+#'     (2) marketObjectCode (3) base (4) dataPairCount (5) <for X = 1,2,3,4>:
+#'     date.X ,  value.X 
+#'     
+#'     Input csv file format: 
+#'     rfType is the fixed string "referenceIndex"; marketObjectCode is a  
+#'     character string with the MOC of the reference index; base is a numeric
+#'     numeric value typically 1.00 or 100 to set whether an interest rate of  
+#'     5% pa is coded as 5.00 or 0.05; columns 5-13 are used to specify a list 
+#'     of up to 4 <date,value> pairs for the reference index. Dates have the  
+#'     format yyyy-mm-dd. Values are numeric.  
+#'      
+#'     Processing: the rfID for referenceIndex with marketObjectCode="moc1" is
+#'                 set to "sample$moc1";  different risk scenarios may need 
+#'                 different rfid's for the same marketObjectCode. Multiple
+#'                 risk scenarios are not supported using this referenceIndex
+#'                 data import function/format 
+#'     WARNING -   this csv input data format is different from (and not 
+#'                 compatible with) the csv input file format used in 
+#'                 sampleReferenceIndex() function. The format used here is 
+#'                 convenient for defining a set of ReferenceIndexes with very
+#'                 limited data for testing portfolio simulation using a single 
+#'                 risk scenario. The csv input file format used in 
+#'                 sampleReferenceIndex() data import is more scalable and must 
+#'                 be used when referenceIndex data will be entered for 
+#'                 multiple risk scenarios.
+#'
+#' @param rfxsfn   character  full path filename of csv input data file 
+#' @return         list of S4 objects class=ReferenceIndex 
+#' @export
+#' @importFrom utils read.csv
+#' @examples {
+#'    mydatadir <- "~/mydata"
+#'    installSampleData(mydatadir)
+#'    rfxsfn <- paste0(mydatadir,"/RiskFactors.csv")
+#'    rfxsl <- sampleReferenceIndexList(rfxsfn)
+#' }
+sampleReferenceIndexList <- function(rfxsfn){
+  rfxlist <- riskFactors_df2list(riskFile2dataframe(rfxsfn))
+  return(rfxlist) 
+} 
 
 # **********************************************
 # FNP testing section Mar - Apr 2022

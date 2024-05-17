@@ -5,10 +5,8 @@
 \title{\code{bondvr}
     Function bondvr() creates and returns a fixed or variable rate PAM}
 \usage{
-{
-           bondvr(start, maturity, nominal, coupon, paymentFreq, role,
-                  rateResetFreq, rateResetSpread )
-        }
+bondvr(start, maturity, nominal, coupon, paymentFreq, role, 
+              rateResetFreq, rateResetSpread )
 }
 \arguments{
 \item{start}{character string yyyy-mm-dd the start date of the bond.}
@@ -17,7 +15,7 @@
 
 \item{nominal}{numeric to set the notional principal of the bond,}
 
-\item{coupon}{numeric coupon/interest rate 0.02 = 2pc pa default 0.0 .}
+\item{coupon}{numeric the coupon/interest rate 0.02 = 2pcpa default is 0.0.}
 
 \item{paymentFreq}{a character string with period of coupon payments,}
 
@@ -31,20 +29,19 @@
 a PrincipalAtMaturity contract with specified attributes.
 }
 \description{
-Convenience function with a simplified parameter list to create and
+Convenience function with a simplified parameter list to create and 
     initialize a single PrincipalAtMaturity fixed or variable rate bond
     contract.
 .
-    Variable rate bonds  are identified by a nonnull rateResetFrequency. For
-    these variable rate bonds the default marketObjectCodeOfRateReset is
+    Variable rate bonds  are identified by a nonnull rateResetFrequency. For 
+    these variable rate bonds the default marketObjectCodeOfRateReset is 
     "YC_EA_AAA"
-}
-\details{
-Terms statusDate and contractDealDate are set 1 day before start date.
+    
+    Terms statusDate and contractDealDate are set 1 day before start date. 
     Term initialExchangeDate is set to start date. The cycleAnchorDates for
-    Interest and principal payments are set at ( IED + a period ). The
-    maturityDate is set ( IED + Maturity period) defaults are set for
-    currency, dayCountConvention, Calendar. Role, notionaPrincipal and
+    Interest and principal payments are set at ( IED + a period ). The 
+    maturityDate is set ( IED + Maturity period) defaults are set for 
+    currency, dayCountConvention, Calendar. Role, notionaPrincipal and 
     nominalInterestRate are set as specified in the parameter list.
 }
 \examples{
