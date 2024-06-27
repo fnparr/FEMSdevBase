@@ -36,29 +36,15 @@ setMethod(f = "EventSeries", signature = c("ContractType","list", "character"),
             ptf <- Portfolio()
             ptf$contracts <- list(contract)  # singleContractPortfolio
             # Run the cashflow generation on this portfolio
-            cshfl_rslt1 <- generateEvents(ptf,serverURL,riskFactors)[[1]]
+            cshfl_rslt1 <- generateEvents(ptf = ptf,serverURL = serverURL, riskFactors = riskFactors)
             #first cashflow from single contract ptf
-            stopifnot (cshfl_rslt1$status == "Success") # possibl better info
-            evs_list <- cshfl_rslt1$events
+            events_df <- eventsLoL2DF(cshfl_rslt1)
             # build the output EventSeries object
             evs <- EventSeries()
             evs$contractID <- contract$contractTerms$contractID
             evs$contractType <- contract$contractTerms$contractType
             evs$statusDate <-  contract$contractTerms$statusDate
             evs$riskFactors <- riskFactors
-
-            # construct the 7 columns with event list data (no long loops please)
-            # initialize the data.frame with a row index evid
-            evid <- 1:length(evs_list)
-            events_df <-data.frame(evid)
-            Event_Field_Names <- c("type","time","payoff","currency",
-                                   "nominalValue","nominalRate","nominalAccrued")
-            for(evfield in Event_Field_Names) {
-              events_df[evfield] <- unlist(sapply(evs_list,
-                                                  function(ev){ev[evfield]}))
-            }
-            # now remove the evid column used to size events_df
-            events_df <- subset(events_df, select = -evid) #drop starter column
 
             events_df$time <- sapply(events_df$time,
                                      function(t){substr(t,1,10)}) # format dates
@@ -79,12 +65,6 @@ setMethod(f = "EventSeries", signature = c("ContractType","list", "character"),
 #' @include RiskFactor.R
 #' @include Portfolio.R
 #' @include ContractType.R
-#' @examples{
-#'   pam1 <- bondvr("2013-12-31", maturity = "5 years", nominal = 50000,
-#'                coupon = 0.02, paymentFreq = "1 years", role = "long")
-#'   serverURL <- "https://demo.actusfrf.org:8080/"
-#'   evs1 <-generateEventSeries(pam1, list(), serverURL)
-#'  }
 setGeneric(name = "generateEventSeries",
            def = function(contract, riskFactors, serverURL){
              standardGeneric("generateEventSeries")
@@ -109,6 +89,12 @@ setGeneric(name = "generateEventSeries",
 #' @param  riskFactors list        list of S4 ref Class=RiskFactor
 #' @param  serverURL   character   URL of ACTUS server to simulate the contract
 #' @return              S4 ref     class=EventSeries
+#' @examples{
+#'   pam1 <- bondvr("2013-12-31", maturity = "5 years", nominal = 50000,
+#'                coupon = 0.02, paymentFreq = "1 years", role = "long")
+#'   serverURL <- "https://demo.actusfrf.org:8080/"
+#'   evs1 <-generateEventSeries(pam1, list(), serverURL)
+#'  }
 #' @export
 #'
 setMethod(f = "generateEventSeries", signature = c("ContractType","list", "character"),

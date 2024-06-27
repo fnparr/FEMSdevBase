@@ -4,7 +4,7 @@
 \alias{generateEvents}
 \title{generateEvents < >     Generic method definition}
 \usage{
-generateEvents(ptf, serverURL, riskFactors, ...)
+generateEvents(host, ptf, serverURL, riskFactors)
 }
 \arguments{
 \item{ptf}{S4 reference Class=Portfolio}
@@ -12,14 +12,16 @@ generateEvents(ptf, serverURL, riskFactors, ...)
 \item{serverURL}{character string, the URL of ACTUS server to call out to.}
 
 \item{riskfactors}{list of S4 Class=ReferenceIndex}
+
+\item{scna}{ContractAnalysis S4 object with list of contracts}
 }
 \value{
 List of generated cashflow results - one entry per contract
 }
 \description{
 Defines a generic method on S4 Class Portfolio. Instances will call out
-to an ACTUS server at location serverURL to generate cashflow events for
-contracts in the portfolio using the risk scenario in the portfolio.
-Instances of this generic are:
-signature ( "Portfolio", serverURL, riskFactors,...)
+to an ACTUS server at location serverURL to generate cashflow events for 
+contracts in the portfolio using the risk scenario in the portfolio. 
+Instances of this generic are: 
+ signature ( "Portfolio", serverURL, riskFactors, "ContractAnalysis", ... )
 }

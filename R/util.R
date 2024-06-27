@@ -26,7 +26,6 @@ longName <- function(name) {
   }
   return(out)
 }
-
 #' monthlyAverageRate indf)  function
 #'
 #'    This function takes as input a data frame with a numeric Rate column

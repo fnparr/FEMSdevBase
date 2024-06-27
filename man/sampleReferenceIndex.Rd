@@ -2,7 +2,20 @@
 % Please edit documentation in R/ReferenceIndex.R
 \name{sampleReferenceIndex}
 \alias{sampleReferenceIndex}
-\title{sampleReferenceIndex     (rxdfp,rfID, moc, base)}
+\title{sampleReferenceIndex     (rxdfp,rfID, moc, base)
+ 
+    Function to read a csv file with a column of yyyy-mm-dd dates, and a 
+    column of interest rate values. A marketObjectCode, a riskFactorID and 
+    a numeric base value. The function returns an S4 ref to an object with
+    class=ReferenceIndex. The marketObjectCode is the identifier used in 
+    variable rate contracts to specify a dependency on this ReferenceIndex
+    for setting a nominal interest rate.  The numeric value base should have 
+    value 100 if a 3.1% interest rate appears as 3.1 in the csv file, and 
+    value 1.0 if that rate appears as 0.031. Input parameter rfID will be 
+    set as the unique riskFactorID of the returned ReferenceIndex object.
+    Examples of csv files formatted with Dates and Values for ReferenceIndex
+    creation in the sample data are: UST5Y_fallingRates.csv,
+    UST5Y_recoveringRates.csv, UST5Y_risingRates.csv, UST5Y_steadyRates.csv .}
 \usage{
 sampleReferenceIndex(rxdfp, rfID, moc, base)
 }
@@ -19,14 +32,16 @@ sampleReferenceIndex(rxdfp, rfID, moc, base)
 S4 ref to a new class=ReferenceIndex object
 }
 \description{
-Function to read a csv file with a column of yyyy-mm-dd dates, and a
-    column of interest rate values. A marketObjectCode, a riskFactorID and
+sampleReferenceIndex     (rxdfp,rfID, moc, base)
+ 
+    Function to read a csv file with a column of yyyy-mm-dd dates, and a 
+    column of interest rate values. A marketObjectCode, a riskFactorID and 
     a numeric base value. The function returns an S4 ref to an object with
-    class=ReferenceIndex. The marketObjectCode is the identifier used in
+    class=ReferenceIndex. The marketObjectCode is the identifier used in 
     variable rate contracts to specify a dependency on this ReferenceIndex
-    for setting a nominal interest rate.  The numeric value base should have
-    value 100 if a 3.1% interest rate appears as 3.1 in the csv file, and
-    value 1.0 if that rate appears as 0.031. Input parameter rfID will be
+    for setting a nominal interest rate.  The numeric value base should have 
+    value 100 if a 3.1% interest rate appears as 3.1 in the csv file, and 
+    value 1.0 if that rate appears as 0.031. Input parameter rfID will be 
     set as the unique riskFactorID of the returned ReferenceIndex object.
     Examples of csv files formatted with Dates and Values for ReferenceIndex
     creation in the sample data are: UST5Y_fallingRates.csv,

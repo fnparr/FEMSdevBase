@@ -13,8 +13,8 @@ samplePortfolio(cdfn)
 Portfolio s4 object initialized with the data from the input files
 }
 \description{
-samplePortfolio ( cdfn) takes as input a contracts-data-filepath
-    reads this data and returns an initialized Portfolio object with
+samplePortfolio ( cdfn) takes as input a contracts-data-filepath 
+    reads this data and returns an initialized Portfolio object with 
     contracts from the csv file.
 }
 \examples{

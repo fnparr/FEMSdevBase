@@ -11,15 +11,14 @@
 # defines: Annuity refClass  - extends ContractType
 
 #' @include ContractType.R
-#' @include ContractABC.R
 #' @import methods
 #' @importFrom methods new
-#'
+#' 
 setRefClass("Annuity",
             contains = "ContractType")
 
 
-# mark for deletion Ann()   Annuity() does everythig
+# mark for deletion Ann()   Annuity() does everythig 
 
 # setGeneric(name = "Ann",
 #           def = function(...){

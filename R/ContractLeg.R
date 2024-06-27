@@ -22,11 +22,11 @@ setGeneric(name = "CLeg",
 
 setMethod(f = "CLeg", signature = c("character"),
           definition = function(moc) {
-            cleg <- new("ContractLeg")
-            cleg$marketObjectCode <- moc
-            cleg$referenceType <- "MOC"
-            cleg$referenceRole <-"UDL"
-            return(cleg)
+             cleg <- new("ContractLeg")
+             cleg$marketObjectCode <- moc
+             cleg$referenceType <- "MOC"
+             cleg$referenceRole <-"UDL"
+             return(cleg)
           })
 
 # ********************************************************
@@ -37,15 +37,15 @@ setMethod(f = "CLeg", signature = c("character"),
 
 # preJSONcleglist takes list of clegs returns preJ for: [ <cleg> ]
 preJSONcleglist <- function(cleglst) {
-  clegseq <- lapply(cleglst, preJSONcleg)
-  names(clegseq) <- NULL  # JSON sequence is unnamed clegs
-  return(clegseq)
+    clegseq <- lapply(cleglst, preJSONcleg)
+    names(clegseq) <- NULL  # JSON sequence is unnamed clegs
+    return(clegseq)
 }
 
 # preJSONcleg prepares cleg for:  { "object" : ... etc ... }
 preJSONcleg <- function(cleg) {
-  clegj <- list(object= list(marketObjectCode = jsonlite::unbox(cleg$marketObjectCode)),
-                referenceType = jsonlite::unbox(cleg$referenceType),
-                referenceRole = jsonlite::unbox(cleg$referenceRole))
-  return(clegj)
+    clegj <- list(object= list(marketObjectCode = jsonlite::unbox(cleg$marketObjectCode)),
+                  referenceType = jsonlite::unbox(cleg$referenceType),
+                  referenceRole = jsonlite::unbox(cleg$referenceRole))
+    return(clegj)
 }
