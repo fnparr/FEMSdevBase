@@ -36,7 +36,7 @@ setGeneric(name = "yearFraction",
 #' @importFrom lubridate ymd
 #' @importFrom RQuantLib yearFraction
 
-setMethod(f = "yearFraction", signature = c("character", "character", "character"),
+setMethod(f = "yearFraction", signature = c("character", "character", "numeric"),
           definition = function(Tfrom, Tto, yfdcc){
             # calculate year fraction
             frac <- RQuantLib::yearFraction(lubridate::ymd(Tfrom),
