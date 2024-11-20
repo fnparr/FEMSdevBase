@@ -2,7 +2,7 @@
 % Please edit documentation in R/yearFraction.R
 \name{yearFraction,character,character,character-method}
 \alias{yearFraction,character,character,character-method}
-\title{yearFraction(Tfrom, Tto, yfDayCountConvention) 
+\title{yearFraction(Tfrom, Tto, yfDayCountConvention)
    -- NONexported wrapper for functions lubridate::ymd() and}
 \usage{
 \S4method{yearFraction}{character,character,character}(Tfrom, Tto, yfdcc)
@@ -10,7 +10,7 @@
 \arguments{
 \item{Tfrom}{character  start date of interval in yyyy-mm-dd form}
 
-\item{yfdcc}{character  year_frac supported dayCountConvention value}
+\item{yfdcc}{character  RQuantLib::yearFraction supported dayCountConvention value}
 
 \item{Tto.}{character  end date of internal in yyyy-mm-dd form}
 }
@@ -19,15 +19,17 @@ Length of time interval in fractional number of years
 }
 \description{
 Function yearFraction(character, character, character ) takes as
-  input: (1) a yyyy-mm-dd start date of the interval, (2) a yyyy-mm-dd 
-  end date for the interval and (3) a year_frac supported dayCountConvention
-  string.  It returns the length of the interval as a fractional number of 
+  input: (1) a yyyy-mm-dd start date of the interval, (2) a yyyy-mm-dd
+  end date for the interval and (3) a RQuantLib::yearFraction supported dayCountConvention
+  string.  It returns the length of the interval as a fractional number of
   years.  If Dto is earlier (<) Dfrom a negative fractional number of years
-  is returned. 
-   
-  Function yearFraction(Tfrom,Tto, yfdcc) depends on and uses external 
-  library functions: (1) lubridate::ymd() which converts a yyyy-mm-dd 
+  is returned.
+}
+\details{
+Function yearFraction(Tfrom,Tto, yfdcc) depends on and uses external
+  library functions: (1) lubridate::ymd() which converts a yyyy-mm-dd
   character string date into a Date value and
-   (2) fmdates::year_frac(Dfrom, Dto, yfdcc) which requires Dfrom and Dto 
-   to be Date values and yfdcc a year_frac dayCountConvention string
+   (2) RQuantLib::yearFraction(startDates, endDates, dayCounters) which requires startDates and endDates
+   to be Date vectors and dayCounters a vector of numeric dayCountConvention values
+   (see https://search.r-project.org/CRAN/refmans/RQuantLib/html/Enum.html).
 }
