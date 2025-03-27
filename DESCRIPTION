@@ -71,5 +71,6 @@ Collate:
     'FinancialModel.R'
     'Option.R'
     'ReferenceIndex.R'
+    'RiskService.R'
     'generatePortfolioData.R'
     'util.R'
