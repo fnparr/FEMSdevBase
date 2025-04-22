@@ -32,11 +32,11 @@
 #' @export
 #' @examples{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' }
 putReferenceIndex <- function(url, riskFactor){
-  endpoint <- paste0(url, "/addReferenceIndex")
+  endpoint <- paste0(url, "addReferenceIndex")
   dat <- preJSONrfx_rf20(riskFactor)
   body <- jsonlite::toJSON(dat, pretty = TRUE, auto_unbox = FALSE)
   putResponse <- POST(
@@ -68,12 +68,12 @@ putReferenceIndex <- function(url, riskFactor){
 #' @export
 #' @examples{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' findReferenceIndex(url, "UST5Y_fallingRates")
 #' }
 findReferenceIndex <- function(url, riskFactorID){
-  endpoint <- paste0(url, "/findReferenceIndex/", riskFactorID)
+  endpoint <- paste0(url, "findReferenceIndex/", riskFactorID)
 
   findResponse <- GET(
     endpoint
@@ -109,12 +109,12 @@ findReferenceIndex <- function(url, riskFactorID){
 #' @export
 #' @examples{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' findAllReferenceIndexes(url)
 #' }
 findAllReferenceIndexes <- function(url){
-  endpoint <- paste0(url, "/findAllReferenceIndexes")
+  endpoint <- paste0(url, "findAllReferenceIndexes")
 
   findResponse <- GET(
     endpoint
@@ -158,12 +158,12 @@ findAllReferenceIndexes <- function(url){
 #' @export
 #' @examples{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' deleteReferenceIndex(url, "UST5Y_fallingRates")
 #' }
 deleteReferenceIndex <- function(url, riskFactorID){
-  endpoint <- paste0(url, "/deleteReferenceIndex/", riskFactorID)
+  endpoint <- paste0(url, "deleteReferenceIndex/", riskFactorID)
 
   if(findReferenceIndex(url, riskFactorID) == 0){
     print("No deletion was performed.")
@@ -203,7 +203,7 @@ deleteReferenceIndex <- function(url, riskFactorID){
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -219,17 +219,19 @@ deleteReferenceIndex <- function(url, riskFactorID){
 #' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
 #' }
 putTwoDimensionalPrepaymentModel <- function(url, riskFactorID, referenceRateID, prePaymentEventTimes, dimension1, dimension2, data) {
-  endpoint <- paste0(url, "/addTwoDimensionalPrepaymentModel")
+  endpoint <- paste0(url, "addTwoDimensionalPrepaymentModel")
 
   margins <- list(
     list(dimension = 1, values = dimension1),
     list(dimension = 2, values = dimension2)
   )
 
+  prePaymentEventTimes_f <- lapply(prePaymentEventTimes, function(x) format(as.Date(x), "%Y-%m-%dT%H:%M:%S"))
+
   data_list <- list(
     riskFactorId = riskFactorID,
     referenceRateId = referenceRateID,
-    prepaymentEventTimes = prePaymentEventTimes,
+    prepaymentEventTimes = prePaymentEventTimes_f,
     surface = list(
       interpolationMethod = "linear",
       extrapolationMethod = "constant",
@@ -268,7 +270,7 @@ putTwoDimensionalPrepaymentModel <- function(url, riskFactorID, referenceRateID,
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -285,7 +287,7 @@ putTwoDimensionalPrepaymentModel <- function(url, riskFactorID, referenceRateID,
 #' findTwoDimensionalPrepaymentModel(url, "ppm01")
 #' }
 findTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
-  endpoint <- paste0(url, "/findTwoDimensionalPrepaymentModel/", riskFactorID)
+  endpoint <- paste0(url, "findTwoDimensionalPrepaymentModel/", riskFactorID)
 
   response <- GET(endpoint)
 
@@ -318,7 +320,7 @@ findTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -335,7 +337,7 @@ findTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #' findAllTwoDimensionalPrepaymentModels(url)
 #' }
 findAllTwoDimensionalPrepaymentModels <- function(url) {
-  endpoint <- paste0(url, "/findAllTwoDimensionalPrepaymentModels")
+  endpoint <- paste0(url, "findAllTwoDimensionalPrepaymentModels")
 
   response <- GET(endpoint)
 
@@ -376,7 +378,7 @@ findAllTwoDimensionalPrepaymentModels <- function(url) {
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -393,7 +395,7 @@ findAllTwoDimensionalPrepaymentModels <- function(url) {
 #' deleteTwoDimensionalPrepaymentModel(url, "ppm01")
 #' }
 deleteTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
-  endpoint <- paste0(url, "/deleteTwoDimensionalPrepaymentModel/", riskFactorID)
+  endpoint <- paste0(url, "deleteTwoDimensionalPrepaymentModel/", riskFactorID)
 
   response <- DELETE(endpoint)
 
@@ -424,7 +426,7 @@ deleteTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -483,7 +485,7 @@ putScenario <- function(url, scenarioID, referenceIndexes, prePayments2d){
     riskFactorDescriptors = append(riskFactorDescriptors, prePayments2dDescriptors)
   )
 
-  endpoint <- paste0(url, "/addScenario")
+  endpoint <- paste0(url, "addScenario")
   body <- jsonlite::toJSON(data_list, pretty = TRUE, auto_unbox = TRUE)
 
   postResponse <- POST(
@@ -514,7 +516,7 @@ putScenario <- function(url, scenarioID, referenceIndexes, prePayments2d){
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -534,7 +536,7 @@ putScenario <- function(url, scenarioID, referenceIndexes, prePayments2d){
 #' findScenario(url, "scn01")
 #' }
 findScenario <- function(url, scenarioID) {
-  endpoint <- paste0(url, "/findScenario/", scenarioID)
+  endpoint <- paste0(url, "findScenario/", scenarioID)
 
   response <- GET(endpoint)
 
@@ -567,7 +569,7 @@ findScenario <- function(url, scenarioID) {
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -587,7 +589,7 @@ findScenario <- function(url, scenarioID) {
 #' findAllScenarios(url)
 #' }
 findAllScenarios <- function(url) {
-  endpoint <- paste0(url, "/findAllScenarios")
+  endpoint <- paste0(url, "findAllScenarios")
 
   response <- GET(endpoint)
 
@@ -633,7 +635,7 @@ findAllScenarios <- function(url) {
 #' @import httr
 #' @export
 #' @examples{
-#' url <- "http://localhost:8082"
+#' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
 #' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
@@ -653,7 +655,7 @@ findAllScenarios <- function(url) {
 #' deleteScenario(url, "scn01")
 #' }
 deleteScenario <- function(url, scenarioID) {
-  endpoint <- paste0(url, "/deleteScenario/", scenarioID)
+  endpoint <- paste0(url, "deleteScenario/", scenarioID)
 
   response <- DELETE(endpoint)
 
