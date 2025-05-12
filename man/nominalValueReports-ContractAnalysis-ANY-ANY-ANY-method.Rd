@@ -15,32 +15,32 @@
 Log summarizing whether processing was successful
 }
 \description{
-nominalValueReports(host= <contractAnalysis>) creates list of NV reports for all 
+nominalValueReports(host= <contractAnalysis>) creates list of NV reports for all
 contracts in the contractAnalysis and saves this in host$nominalValueReports.
-Each NV report is a vector of numeric values - one for statusDate and a 
-value for each reportDate, so host$nominalValueReports is a list of 
-list(cid,nominalValueVector) elements. 
+Each NV report is a vector of numeric values - one for statusDate and a
+value for each reportDate, so host$nominalValueReports is a list of
+list(cid,nominalValueVector) elements.
 The method returns a log msg - no known causes for error
 }
 \details{
 Method nominalValueReports(host) uses host$cashflowEventsByPeriod dataframe
-for input data except for the statusDate value for each contract which comes 
+for input data except for the statusDate value for each contract which comes
 from host$portfolio.
 
 ************
-We get nominalValue at each reportDate for a specific contract as follows: 
+We get nominalValue at each reportDate for a specific contract as follows:
 Step(1): subset the scna$cashflowEventsByPeriod dataframe to rows with this
-cid and periodIndex == a report period i.e. periodIndex <= reportCount. 
+cid and periodIndex == a report period i.e. periodIndex <= reportCount.
 Step(2): subset this dataframe to the columns: periodIndex and nominalValue.
 Step(3): subset further: for each period make a list of eventrow indexes for
-that period; keep the last-event-in-period, discard the others. Since the 
+that period; keep the last-event-in-period, discard the others. Since the
 nominalValue of the contract cannot change after the last event,
 the reported nominalValue at the time of this last event is the correct value
-to report for the period. 
-Step(4): convert dataframe nominalValues to a report vector with na for 
+to report for the period.
+Step(4): convert dataframe nominalValues to a report vector with na for
 report periods in which there was no event generating nominalValue status
 Step(5): add StatusDate nominalPrincipal from contractTerms as first 0th element
-Step(6): use library(zoo) na.locf() to forward fill missing (na) values in 
+Step(6): use library(zoo) na.locf() to forward fill missing (na) values in
 the nominalValueReport vector with "the most recent" value from left. Since
 there was no intervening event to change nominalValue this is still correct.
 
@@ -60,15 +60,15 @@ each unique cid in the events dataframe
    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
    tl1 <- Timeline("2015-01-01",3,4,8)
-   cfla2015 <- initContractAnalysis( analysisID = "cfla001", 
+   cfla2015 <- initContractAnalysis( analysisID = "cfla001",
                              analysisDescription = "this_analysis_descr",
                              enterpriseID = "entp001", yieldCurve = YieldCurve(),
-                             portfolio =  ptf2015, currency = "USD", 
-                             scenario = list(rfx), 
-                             actusServerURL = serverURL, 
+                             portfolio =  ptf2015, currency = "USD",
+                             scenario = list(rfx),
+                             actusServerURL = serverURL,
                              timeline = tl1)
    logMsgs1  <- generateEvents(host = cfla2015)
    logMsgs2  <- events2dfByPeriod(host = cfla2015)
    logMsgs6  <- nominalValueReports(host = cfla2015)
-} 
+}
 }

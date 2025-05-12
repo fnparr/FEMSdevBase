@@ -17,10 +17,10 @@ showNMVreports(fm, scale = 1, rounding = 0)
 data frame suitable for displaying results
 }
 \description{
-This function returns a dataframe showing expected nominal value reports at 
-different dates for the accounts in the financial model with cashflows 
-generated using the risk environment of the currentScenarioAnalysis in the 
-financial model. There is a row in the data frame for #' each account in the 
-financial model Accounts tree. The structure of the accounts tree is 
+This function returns a dataframe showing expected nominal value reports at
+different dates for the accounts in the financial model with cashflows
+generated using the risk environment of the currentScenarioAnalysis in the
+financial model. There is a row in the data frame for #' each account in the
+financial model Accounts tree. The structure of the accounts tree is
 displayed in the first column of the data frame
 }

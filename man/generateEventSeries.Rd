@@ -4,14 +4,27 @@
 \alias{generateEventSeries}
 \title{generateEventSeries      Generic method definition}
 \usage{
-generateEventSeries(contract, riskFactors, serverURL)
+generateEventSeries(
+  contract,
+  serverURL,
+  riskFactors,
+  scenarioID,
+  simulateToDate,
+  monitoringTimes
+)
 }
 \arguments{
 \item{contract}{the contract to simulate cashflows for}
 
+\item{serverURL}{locate the ACTUS server performing the cashflow analysis}
+
 \item{riskFactors}{list of riskFactors - scenario for contract simulation}
 
-\item{serverURL}{locate the ACTUS server performing the cashflow analysis}
+\item{scenarioID}{character   scenarioID for the risk factor list (on the risk server)}
+
+\item{simulateToDate}{character string, the date to which the simulation is to be run in case of a scenarioSimulation}
+
+\item{monitoringTimes}{list of character strings, the dates to be monitored in case of a scenarioSimulation}
 }
 \value{
 an EventSeries with cashflow events for the contract

@@ -2,9 +2,9 @@
 % Please edit documentation in R/ScenarioAnalysis.R
 \name{ScenarioAnalysis,character,list,YieldCurve,AccountsTree-method}
 \alias{ScenarioAnalysis,character,list,YieldCurve,AccountsTree-method}
-\title{ScenarioAnalysis (required initialization parameters)   
-internal use only 
-Creates and returns S4 ref ScenarioAnalysis instance ready for contract 
+\title{ScenarioAnalysis (required initialization parameters)
+internal use only
+Creates and returns S4 ref ScenarioAnalysis instance ready for contract
 simulationized.}
 \usage{
 \S4method{ScenarioAnalysis}{character,list,YieldCurve,AccountsTree}(scenarioID, marketData, yieldCurve, accounts)
@@ -22,8 +22,8 @@ simulationized.}
 initialized ScenarioAnalysis object
 }
 \description{
-ScenarioAnalysis (required initialization parameters)   
-internal use only 
-Creates and returns S4 ref ScenarioAnalysis instance ready for contract 
+ScenarioAnalysis (required initialization parameters)
+internal use only
+Creates and returns S4 ref ScenarioAnalysis instance ready for contract
 simulationized.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ContractAnalysis.R
 \name{initContractAnalysis}
 \alias{initContractAnalysis}
-\title{initContractAnalysis(analysisID, analysisDescription, enterpriseID, 
+\title{initContractAnalysis(analysisID, analysisDescription, enterpriseID,
 yieldCurve, portfolio, currency, scenario, actusServerURL, Timeline )}
 \usage{
 initContractAnalysis(
@@ -40,31 +40,32 @@ initContractAnalysis(
 ContractAnalysis S4 object: initialized/ready for simulation step
 }
 \description{
-This method is used to start a cashflow analysis of contract holdings of 
-  an enterprise. The user supplies information specifying the analysis to 
+This method is used to start a cashflow analysis of contract holdings of
+  an enterprise. The user supplies information specifying the analysis to
   be performed. The method is a constructor returning an initialized
   S4 ContractAnalysis object which is then used to step through the analysis
-  process saving results at each step. The completed analysis will provide 
-  projected liquidity change, income and valuation for each held contract 
+  process saving results at each step. The completed analysis will provide
+  projected liquidity change, income and valuation for each held contract
   at a set of specified report periods for a specified risk scenario. The
-  risk scenario is defined as a list of projected market interest and 
-  possibly stock price movements over time. Contract cashflow behavior is 
+  risk scenario is defined as a list of projected market interest and
+  possibly stock price movements over time. Contract cashflow behavior is
   simulated by calling out to an identified ACTUS server.  Input Yield curve
-  data is used to set discounting and risk free growth factors used to 
+  data is used to set discounting and risk free growth factors used to
   determine a projected contract value at each defined future report time for
-  each contract in the enterprise portfolio. 
-  
-  Steps in the ContractAnalysis are: (1) Initialization (2) Portfolio 
-  simulation generating projected cashflow behavior for each contract 
+  each contract in the enterprise portfolio.
+}
+\details{
+Steps in the ContractAnalysis are: (1) Initialization (2) Portfolio
+  simulation generating projected cashflow behavior for each contract
   (3) Bucket the cashevents for each contract to enable reporting for each
-  period in the timeline (4) Compute contract income for each report period 
-  based in non principal flows for each contract (5) Compute contract 
+  period in the timeline (4) Compute contract income for each report period
+  based in non principal flows for each contract (5) Compute contract
   liquidity for each report period based on all period cashflows for each
   (6) compute NetPresentValue for each contract at the start time and at each
-  report point using aggregated bucket flows for the contract and a 
+  report point using aggregated bucket flows for the contract and a
   correction for residual cashflow project to occur beyond the bucket horizon
-  - applying discounting and growth factors derived from the supplied Yield 
-  Curve Data (7) Computing some key ratios for the Enterprise based on these 
+  - applying discounting and growth factors derived from the supplied Yield
+  Curve Data (7) Computing some key ratios for the Enterprise based on these
   results
 }
 \examples{

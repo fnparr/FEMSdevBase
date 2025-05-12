@@ -20,7 +20,7 @@ The function looks up if a riskFactor, in this case a TwoDimensionalPrepaymentMo
 }
 \examples{
 {
-url <- "http://localhost:8082"
+url <- "http://localhost:8082/"
 rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 putReferenceIndex(url, rfx1)
 evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")

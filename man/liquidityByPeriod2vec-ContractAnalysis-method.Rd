@@ -17,23 +17,24 @@ Log summarizing whether processins was successful
 \description{
 This method reorganizes the cashflowEventsByPeriod df to show the liquidity
   change from each contract for each regular period - period 999 is extracted
-  separately for residual (far future) valuations. It saves a list of 
+  separately for residual (far future) valuations. It saves a list of
   liquidity change vectors, one for each contract. The liquidity change
   vectors record a net liquidity change for each period in the timeline
-  for that contract. All eventtype payoffs contribute to 
+  for that contract. All eventtype payoffs contribute to
   liquidity change for the period in which they occur. This liquiditByPeriod
   dataframe is used for: (1) liquidityReports - will be a reformatted subset
   using values for periodIndex in the range 1:reportCount, and (2) liquidity
-  change for all periods is will be used in the aggregated period step of 
-  contract valuation. 
- 
-  Processing steps in the method: (1) subset cashflowByPerioddf to remove"
+  change for all periods is will be used in the aggregated period step of
+  contract valuation.
+}
+\details{
+Processing steps in the method: (1) subset cashflowByPerioddf to remove"
   beyond the periodHorizon events; (2) Aggregate payoffs for each contract x
-  period combination;  (3) use split on the contract id to convert the 
+  period combination;  (3) use split on the contract id to convert the
   aggregated df to a list where each element has its cid value (repeated),
-  a vector of period indices and a vector of period net liquidity change 
-  values. Use lapply() on this list to produce a list of 
-  <contractId, liquidity> vector pairs.
+  a vector of period indices and a vector of period net liquidity change
+  values. Use lapply() on this list to produce a list of
+  <contractID, liquidity> vector pairs.
 }
 \examples{
 {
@@ -47,15 +48,15 @@ This method reorganizes the cashflowEventsByPeriod df to show the liquidity
    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
    tl1 <- Timeline("2015-01-01",3,4,8)
-   cfla2015 <- initContractAnalysis( analysisID = "cfla001", 
+   cfla2015 <- initContractAnalysis( analysisID = "cfla001",
                              analysisDescription = "this_analysis_descr",
                              enterpriseID = "entp001", yieldCurve = YieldCurve(),
-                             portfolio =  ptf2015, currency = "USD", 
-                             scenario = list(rfx), 
-                             actusServerURL = serverURL, 
+                             portfolio =  ptf2015, currency = "USD",
+                             scenario = list(rfx),
+                             actusServerURL = serverURL,
                              timeline = tl1)
    logMsgs1  <- generateEvents(host = cfla2015)
    logMsgs2  <- events2dfByPeriod(host = cfla2015)
    logMsgs3  <- liquidityByPeriod2vec(host= cfla2015)
-} 
+}
 }

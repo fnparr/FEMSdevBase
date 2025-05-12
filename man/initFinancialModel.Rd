@@ -2,9 +2,9 @@
 % Please edit documentation in R/FinancialModel.R
 \name{initFinancialModel}
 \alias{initFinancialModel}
-\title{FinancialModel( < > ) constructor to create a financial model and set 
+\title{FinancialModel( < > ) constructor to create a financial model and set
 its pre-analysis attributes
-FinancialModel(fmID, fmDescr, entprID, accounts, ptf, curr, timeline, 
+FinancialModel(fmID, fmDescr, entprID, accounts, ptf, curr, timeline,
                serverURL)}
 \usage{
 initFinancialModel(
@@ -39,9 +39,9 @@ initFinancialModel(
 FinancialModel S4 object: ready for analyses to be added
 }
 \description{
-FinancialModel( < > ) constructor to create a financial model and set 
+FinancialModel( < > ) constructor to create a financial model and set
 its pre-analysis attributes
-FinancialModel(fmID, fmDescr, entprID, accounts, ptf, curr, timeline, 
+FinancialModel(fmID, fmDescr, entprID, accounts, ptf, curr, timeline,
                serverURL)
 }
 \examples{
@@ -50,7 +50,7 @@ FinancialModel(fmID, fmDescr, entprID, accounts, ptf, curr, timeline,
   fmDescr    <- "test Financial Model logic with example"
   entprID    <- "modelBank01"
   currency   <- "USD"
-  serverURL  <- "https://demo.actusfrf.org:8080/" 
+  serverURL  <- "https://demo.actusfrf.org:8080/"
   yamlstring <- paste0("\nname:  a Model Bank\nAssets:\n  Current:\n     actusCIDs:\n",
    "        - pam001\n        - pam002\n        - ann003\n  ShortTerm:\n",
    "     actusCIDs:\n        - pam004\n        - ann005\n  LongTerm:\n",
@@ -62,11 +62,11 @@ FinancialModel(fmID, fmDescr, entprID, accounts, ptf, curr, timeline,
   installSampleData(mydatadir)
   cdfn  <- "~/mydata/TestPortfolio.csv"
   ptf   <-  samplePortfolio(cdfn)
-  tl <- Timeline(statusDate = "2023-01-01", monthsPerPeriod = 6, 
-                 reportCount=3, periodCount = 6)  
+  tl <- Timeline(statusDate = "2023-01-01", monthsPerPeriod = 6,
+                 reportCount=3, periodCount = 6)
   fm <- initFinancialModel(fmID=fmID, fmDescr= fmDescr, entprID = entprID,
                   accntsTree = accountsTree, ptf = ptf, curr = currency,
-                  timeline = tl, serverURL = serverURL) 
+                  timeline = tl, serverURL = serverURL)
 }
 
 }

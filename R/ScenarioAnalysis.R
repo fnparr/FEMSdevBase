@@ -283,7 +283,7 @@ setMethod (f = "events2dfByPeriod",
                                   function(x)
                                     {return(date2PeriodIndex(tl,
                                                              substr(x,1,10)))})
-            df2 <- df1[c( "contractId","periodIndex","time","type", "payoff",
+            df2 <- df1[c( "contractID","periodIndex","time","type", "payoff",
                           "currency", "nominalValue","nominalRate",
                           "nominalAccrued")]
             host$cashflowEventsByPeriod <- df2
@@ -310,7 +310,7 @@ setMethod(f = "nominalValueReports",
             # subset df: this cid, report horizon rows;
             #            <periodIndex, nominalValue> cols
             nreps <- tl$reportCount
-            df1 <- df[(df$contractId == cid) & (df$periodIndex <= nreps),]
+            df1 <- df[(df$contractID == cid) & (df$periodIndex <= nreps),]
             df2 <- df1[c("periodIndex","nominalValue")]
             # Keep the last-in-period event rows - discard earlier event rows
             df3 <- df2[sapply(unique(df2$periodIndex), function(x)
@@ -318,7 +318,7 @@ setMethod(f = "nominalValueReports",
             ),]
             # get nominalValue of contract cid at statusDate from input ptf
             # (contracts are in portfolio order in df3)
-            cntr <- ptf$contracts[[ match(cid,unique(df$contractId)) ]]
+            cntr <- ptf$contracts[[ match(cid,unique(df$contractID)) ]]
 
             if (cntr$contractTerms["contractRole"] == "RPA" ) {
                sign <- +1
@@ -397,7 +397,7 @@ setMethod(f = "nominalValueReports",
             df <- host$cashflowEventsByPeriod
             # iterate through cids, build keyed list of NVreport vectors
             nvrklist <- list()
-            for ( cid  in unique(df$contractId) ) {
+            for ( cid  in unique(df$contractID) ) {
               nvrklist[[cid]] <- nominalValueReports(host=host,ptf,tl,cid= cid)
             }
             host$nominalValueReports <- nvrklist
@@ -446,10 +446,10 @@ setMethod(f = "liquidityReports",
             df1 <- subset(host$cashflowEventsByPeriod,
                           periodIndex %in% 1:tl$reportCount)
             df2 <- aggregate(df1$payoff,
-                             by=c(cid= list(df1$contractId),
+                             by=c(cid= list(df1$contractID),
                                   period= list(df1$periodIndex)), FUN=sum)
             df2rows <- lapply(split(df2,df2$cid), function(y) as.list(y))
-            cids <- unique(host$cashflowEventsByPeriod$contractId)
+            cids <- unique(host$cashflowEventsByPeriod$contractID)
             # the first date in tl$periodDateVector is statusDate which is
             # NOT a liquidity reporting date - but the next reportCount are.
             rptdates <- as.character(
@@ -531,7 +531,7 @@ setMethod(f = "netPresentValueReports",
           definition = function(host, tl) {
             df <- host$cashflowEventsByPeriod
             nreps <- tl$reportCount
-            cids <- unique(df$contractId)
+            cids <- unique(df$contractID)
             npvsdf <- data.frame(cids = cids)
             ncids <- length(cids)
             repdates <- as.character(tl$periodDateVector[0:nreps+1])
@@ -542,8 +542,8 @@ setMethod(f = "netPresentValueReports",
                 dfrx$payoff * getDiscountFactor(host$yieldCurve, repdates[repx],
                                                 substr(dfrx$time,1,10),0)
               dfaggr <- aggregate(dfrx$discountedCashflows,
-                                  by= list(dfrx$contractId), FUN=sum)
-              # the aggregation above does NOT preserve contractId order
+                                  by= list(dfrx$contractID), FUN=sum)
+              # the aggregation above does NOT preserve contractID order
               # so do a match on the contractid to sort into cashflowslist order
               allnpvs <- rep(0,ncids)
               allnpvs[match(dfaggr$Group.1,cids)] <- dfaggr$x

@@ -966,12 +966,12 @@ extendedEventsDF <- function(fm) {
   events <- fm$currentScenarioAnalysis$cashflowEventsByPeriod
 
   # Ensure column names and types match
-  colnames(events)[which(names(events) == "contractID")] <- "contractId"
+  colnames(events)[which(names(events) == "contractID")] <- "contractID"
   contractmap$CID <- as.character(contractmap$CID)
-  events$contractId <- as.character(events$contractId)
+  events$contractID <- as.character(events$contractID)
 
   # Match indices
-  match_indices <- match(events$contractId, contractmap$CID)
+  match_indices <- match(events$contractID, contractmap$CID)
 
   # Assign nodeId, nodeName, and contractType to events
   events$nodeId <- contractmap$nodeId[match_indices]

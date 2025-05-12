@@ -13,9 +13,9 @@ getLQreports(fm, scale = 1, rounding = 0)
 matrix with account Liquidity reports
 }
 \description{
-This function returns a matrix of doubles showing expected nominal value 
-reports on liquidity at different dates for the accounts in the financial 
-model with #' cashflows generated using the risk environment of the 
+This function returns a matrix of doubles showing expected nominal value
+reports on liquidity at different dates for the accounts in the financial
+model with #' cashflows generated using the risk environment of the
 currentScenarioAnalysis #' in the financial model. There is a row in the data
 frame for each account in the financial model Accounts tree.
 }

@@ -13,6 +13,6 @@ getContractIDs(ptf)
 A vector of character string contractIDs
 }
 \description{
-Defines a generic method on S4 Class Portfolio. Returns a vector with the 
+Defines a generic method on S4 Class Portfolio. Returns a vector with the
 contractIDs of all the contracts in the portfolio.
 }

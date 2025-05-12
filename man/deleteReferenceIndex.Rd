@@ -20,7 +20,7 @@ The function deletes a riskFactor from the server.
 \examples{
 {
 rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
-url <- "http://localhost:8082"
+url <- "http://localhost:8082/"
 putReferenceIndex(url, rfx1)
 deleteReferenceIndex(url, "UST5Y_fallingRates")
 }

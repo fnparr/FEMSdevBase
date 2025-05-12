@@ -330,7 +330,7 @@ setMethod (f = "events2dfByPeriod",
       df1 <- eventsLoL2DF(host$cashflowEventsLoL)
       df1["periodIndex"] <- sapply( df1$time,
          function(x){return(date2PeriodIndex(host$timeline, substr(x,1,10)))})
-      df2 <- df1[c("contractId","periodIndex","time","type", "payoff",
+      df2 <- df1[c("contractID","periodIndex","time","type", "payoff",
                    "currency", "nominalValue","nominalRate","nominalAccrued")]
       host$cashflowEventsByPeriod <- df2
     }
@@ -368,7 +368,7 @@ setGeneric("liquidityByPeriod2vec",
 #'   aggregated df to a list where each element has its cid value (repeated),
 #'   a vector of period indices and a vector of period net liquidity change
 #'   values. Use lapply() on this list to produce a list of
-#'   <contractId, liquidity> vector pairs.
+#'   <contractID, liquidity> vector pairs.
 #'
 #' @param host  CashAnalysis S4 object with portfolio, actusServer and risk data
 #' @return      Log summarizing whether processins was successful
@@ -402,7 +402,7 @@ setMethod(f = "liquidityByPeriod2vec",
     df1 <- subset(host$cashflowEventsByPeriod,
                   periodIndex %in% 1:host$timeline$periodCount)
     df2 <- aggregate(df1$payoff,
-                     by=c(cid= list(df1$contractId),
+                     by=c(cid= list(df1$contractID),
                           period= list(df1$periodIndex)), FUN=sum)
     df2rows <- lapply(split(df2,df2$cid), function(y) as.list(y))
     host$contractLiquidityVectors <- lapply( df2rows, function(z){
@@ -514,7 +514,7 @@ setGeneric("eventsdf2incomeReports",
 #'
 #'   The processing steps are: (1) subset the cashflowEvents data frame to
 #'   select events in the reportPeriods and with eventType in ("IP", "FP").
-#'   (2) aggregate the event payoff amounts for each contractId x reportPeriod,
+#'   (2) aggregate the event payoff amounts for each contractID x reportPeriod,
 #'   and (3) convert the resulting dataframe into a list of incomeReport vectors
 #'   indexed by contractID (4) for contracts in the portfolio with no income
 #'   create null income reports - every contract should have a report
@@ -529,7 +529,7 @@ setGeneric("eventsdf2incomeReports",
 #'   cashflowsByPeriod df in a single method, while the corresponding liquidity
 #'   reports do this with the sequence of method calls: liquidityByPeriod2vec( )
 #'   AND lv2LiquidityReports(cfla). The reason is that the intermediate result,
-#'   for liquidity- the list by contractId of vectors with aggregated liquidity
+#'   for liquidity- the list by contractID of vectors with aggregated liquidity
 #'   change for each period, needs to be save dand made available for contract
 #'   valuations. There is no corresponding need for aggregated income by period
 #'   for each contract to be saved. Also for liquidity cumulative reports are
@@ -573,7 +573,7 @@ setMethod(f = "eventsdf2incomeReports",
                          )
             # step2 aggregate
             df2 <- aggregate(df1$payoff,
-                             by=c(cid= list(df1$contractId),
+                             by=c(cid= list(df1$contractID),
                                   period= list(df1$periodIndex)), FUN=sum
                              )
             # step3 - convert to income vectors list
@@ -629,7 +629,7 @@ setMethod(f = "eventsdf2incomeReports",
 #
 # This method instance uses the scna$cashflowEventsByPeriod dataframe
 # and returns a vector of nominalValue reports for the contract with
-# contractId == cid
+# contractID == cid
 # The returned reportVector has length= scna$timeline$reportCount+1) because a
 # valuation at time 0  i.e. statusDate is included
 # **********
@@ -656,7 +656,7 @@ setMethod(f = "nominalValueReports",
   df <- host$cashflowEventsByPeriod
   # subset df: this cid,  report horizon rows; <periodIndex, nominalValue> cols
   nreps <- host$timeline$reportCount
-  df1 <- df[(df$contractId == cid) & (df$periodIndex <= nreps),]
+  df1 <- df[(df$contractID == cid) & (df$periodIndex <= nreps),]
   df2 <- df1[c("periodIndex","nominalValue")]
   # Keep the last-in-period event rows - discard earlier event rows
   df3 <- df2[sapply(unique(df2$periodIndex), function(x)
@@ -664,7 +664,7 @@ setMethod(f = "nominalValueReports",
   ),]
   # get nominalValue of contract cid at statusDate from scna$portfolio
   # (contracts are in portfolio order in df3)
-  nvsd  <- host$portfolio$contracts[[match(cid,unique(df$contractId))
+  nvsd  <- host$portfolio$contracts[[match(cid,unique(df$contractID))
   ]]$contractTerms["notionalPrincipal"]
   # pass1 report:  has values for any "active period" report
   rvals <- unlist(sapply(seq(1,nreps), function (i) {
@@ -750,7 +750,7 @@ setMethod(f = "nominalValueReports",
           signature = c(host = "ContractAnalysis"),
           definition = function(host) {
   df <- host$cashflowEventsByPeriod
-  host$nominalValueReports <- lapply( unique(df$contractId), function(cid) {
+  host$nominalValueReports <- lapply( unique(df$contractID), function(cid) {
     list(cid= cid, nvreps= nominalValueReports(host=host,,,cid= cid))
   })
   msg <- "NominalValue reports generated"

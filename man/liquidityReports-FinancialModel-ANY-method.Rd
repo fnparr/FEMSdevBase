@@ -12,7 +12,7 @@
 \description{
 This method computes liquidityReports for the currentScenarioAnalysis of the
 host FinancialModel and causes these liquidity reports to be saved in the
-liquidityReports attribute of that ScenarioAnlysis. It does this by calling 
+liquidityReports attribute of that ScenarioAnlysis. It does this by calling
 liquidityReports() on the currentScenarioAnalysis and passing in the
 timeline of the Financial model as a parameter
 }
@@ -34,20 +34,20 @@ timeline of the Financial model as a parameter
   installSampleData(mydatadir)
   cdfn  <- "~/mydata/TestPortfolio.csv"
   ptf   <-  samplePortfolio(cdfn)
-  tl <- Timeline(statusDate = "2023-01-01", monthsPerPeriod = 6, 
-                 reportCount=3, periodCount = 6)  
+  tl <- Timeline(statusDate = "2023-01-01", monthsPerPeriod = 6,
+                 reportCount=3, periodCount = 6)
                  fm1 <- initFinancialModel(
                    fmID=fmID, fmDescr= fmDescr, entprID = entprID,
                    accntsTree = accountsTree, ptf = ptf, curr = currency,
                    timeline = tl, serverURL = serverURL)
-  rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv") 
+  rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
   rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
   marketData <- list(rfx)
-  msg1 <- addScenarioAnalysis(fm = fm1, scnID= "UST5Y_fallingRates", 
-                              rfxs = marketData, yc = YieldCurve()) 
+  msg1 <- addScenarioAnalysis(fm = fm1, scnID= "UST5Y_fallingRates",
+                              rfxs = marketData, yc = YieldCurve())
   msg2 <- generateEvents(host= fm1)
   msg3 <- events2dfByPeriod(host= fm1)
   msg4 <-  nominalValueReports(host = fm1)
-  msg5 <- liquidityReports(host = fm1) 
+  msg5 <- liquidityReports(host = fm1)
 }
 }

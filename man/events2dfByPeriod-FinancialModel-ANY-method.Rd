@@ -13,26 +13,27 @@
 log msg reporting success of cashflow event bucketing
 }
 \description{
-This method reorganizes the cashflow events in the currentScenarioAnalysis 
-  of the FinancialModel by period using the Timeline of the FInancialModel 
-  into a data frame with columns for: contractID, period, and for each 
+This method reorganizes the cashflow events in the currentScenarioAnalysis
+  of the FinancialModel by period using the Timeline of the FInancialModel
+  into a data frame with columns for: contractID, period, and for each
   ACTUS cashflow event field. The input Financial Model must have: (1)
-  a defined portfolio and timeline with status date of all comntracts in the 
-  portfolio matching the statusDate in the timeline (2) a defined 
-  currentScenarioAnlysis (3) generateEvents( ) must have run successfully on 
-  the FinancialModel ( using that current Scenario Analysis ). You can check 
-  this using: 
+  a defined portfolio and timeline with status date of all comntracts in the
+  portfolio matching the statusDate in the timeline (2) a defined
+  currentScenarioAnlysis (3) generateEvents( ) must have run successfully on
+  the FinancialModel ( using that current Scenario Analysis ). You can check
+  this using:
  > unlist(lapply(fm$currentScenarioAnlysis$cashflowEventsLoL,
-                 function(x){return(x$status)})) 
+                 function(x){return(x$status)}))
   If these conditions are met, events2dfByPeriod() will reorganize the data
-  in the scna$cashflowEventsLoL as a dataframe with columns: 
+  in the scna$cashflowEventsLoL as a dataframe with columns:
   and save that as scna$cashflowEventsByPeriod for use in subsequent analysis
-  steps in the currentScenarioAnalysis attribute  
-  
-  A text message is returned reporting on any issues in this processing step.
-  
-  Processing steps: (0) check valid host$cashflowEventsLoL, (1) merge 
-  eventsLOL into eventsDF, (2) add periodIndex column,  (3) sort by 
+  steps in the currentScenarioAnalysis attribute
+}
+\details{
+A text message is returned reporting on any issues in this processing step.
+
+  Processing steps: (0) check valid host$cashflowEventsLoL, (1) merge
+  eventsLOL into eventsDF, (2) add periodIndex column,  (3) sort by
   (contractID, periodIndex), (4) save as host$cashFlowEventsByPeriod.
 }
 \examples{
@@ -41,7 +42,7 @@ This method reorganizes the cashflow events in the currentScenarioAnalysis
   fmDescr    <- "test Financial Model logic with example"
   entprID    <- "modelBank01"
   currency   <- "USD"
-  serverURL  <- "https://demo.actusfrf.org:8080/" 
+  serverURL  <- "https://demo.actusfrf.org:8080/"
   yamlstring <- paste0("\nname:  a Model Bank\nAssets:\n  Current:\n     actusCIDs:\n",
    "        - pam001\n        - pam002\n        - ann003\n  ShortTerm:\n",
    "     actusCIDs:\n        - pam004\n        - ann005\n  LongTerm:\n",
@@ -53,18 +54,18 @@ This method reorganizes the cashflow events in the currentScenarioAnalysis
   installSampleData(mydatadir)
   cdfn  <- "~/mydata/TestPortfolio.csv"
   ptf   <-  samplePortfolio(cdfn)
-  tl <- Timeline(statusDate = "2023-01-01", monthsPerPeriod = 6, 
-                 reportCount=3, periodCount = 6)  
+  tl <- Timeline(statusDate = "2023-01-01", monthsPerPeriod = 6,
+                 reportCount=3, periodCount = 6)
   fm1 <- initFinancialModel(fmID=fmID, fmDescr= fmDescr, entprID = entprID,
                   accntsTree = accountsTree, ptf = ptf, curr = currency,
-                  timeline = tl, serverURL = serverURL) 
+                  timeline = tl, serverURL = serverURL)
   rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
   rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
   marketData <-list(rfx)
-  msg1 <- addScenarioAnalysis(fm = fm1, scnID= "UST5Y_fallingRates", 
-                             rfxs = marketData, yc = YieldCurve())                
+  msg1 <- addScenarioAnalysis(fm = fm1, scnID= "UST5Y_fallingRates",
+                             rfxs = marketData, yc = YieldCurve())
   msg2 <- generateEvents(host= fm1)
   msg3 <- events2dfByPeriod(host= fm1)
 }
-           
+
 }

@@ -14,8 +14,8 @@ data frame suitable for displaying results
 }
 \description{
 This function returns a dataframe showing expected liquidity change
-for each report period for each contract in the portfolio of  
-in the financial model using cashflows of the currentScenarioAnalysis. 
+for each report period for each contract in the portfolio of
+in the financial model using cashflows of the currentScenarioAnalysis.
 There is a row in the data frame for each contract and columns for each
 report date. ContractIDs are displayed in the first column of the data frame
 }
