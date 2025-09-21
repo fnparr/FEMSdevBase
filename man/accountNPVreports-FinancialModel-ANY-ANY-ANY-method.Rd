@@ -32,7 +32,7 @@ fmID       <- "fm001"
 fmDescr    <- "test Financial Model logic with example"
 entprID    <- "modelBank01"
 currency   <- "USD"
-serverURL  <- "https://demo.actusfrf.org:8080/"
+serverURL  <- "https://dadfir3-app.zhaw.ch/"
 yamlstring <- paste0(
  "\nname:  a Model Bank\nAssets:\n  Current:\n     actusCIDs:\n",
  "        - pam001\n        - pam002\n        - ann003\n  ShortTerm:\n",
@@ -41,16 +41,16 @@ yamlstring <- paste0(
  "        - pam007\n  Equity:\nOperations:\n  Cashflows:\n     functionIDs:\n",
  "        - ocf008\n")
 accountsTree <- AccountsTree(yamlstring)
-mydatadir <- "~/mydata"
+mydatadir <- tempdir()
 installSampleData(mydatadir)
-cdfn  <- "~/mydata/TestPortfolio.csv"
+cdfn <- file.path(mydatadir, "fmTestPortfolio.csv")
 ptf   <-  samplePortfolio(cdfn)
 tl <- Timeline(statusDate = "2023-01-01", monthsPerPeriod = 6,
                 reportCount=3, periodCount = 6)
  fm1 <- initFinancialModel(fmID=fmID, fmDescr= fmDescr, entprID = entprID,
                       accntsTree = accountsTree, ptf = ptf, curr = currency,
                       timeline = tl, serverURL = serverURL)
-rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 marketData <- list(rfx)
 ycID <- "yc001"

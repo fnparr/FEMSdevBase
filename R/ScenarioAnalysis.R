@@ -161,12 +161,12 @@ setGeneric("netPresentValueReports",
 #' @import    jsonlite
 #' @import    httr
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/TestPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "fmTestPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
-#'    serverURL <- "https://demo.actusfrf.org:8080/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    serverURL <- "https://dadfir3-app.zhaw.ch/"
+#'    rxdfp <- file.path(mydatadir, "UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    rfxs <-list(rfx)
 #'    scnID <- "UST5Y_fallingRates"

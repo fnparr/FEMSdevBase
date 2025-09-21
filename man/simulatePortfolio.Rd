@@ -45,7 +45,7 @@ If the cashflow simulation is successful, the returned cashflow events are
    falling_fp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
    rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates",
                                    "YC_EA_AAA",100)
-   serverURL <- "http://ractus.ch:8080/"
+   serverURL <- "https://dadfir3-app.zhaw.ch/"
    plotlist <- simulatePortfolio(ptf, serverURL, list(rfx_falling),
                                rfx_falling$riskFactorID )
    plotlist[["monthly income"]]

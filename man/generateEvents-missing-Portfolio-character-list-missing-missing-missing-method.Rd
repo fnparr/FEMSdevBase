@@ -27,14 +27,14 @@ The generateEvents(Portfolio, character, list) function takes as
 }
 \examples{
 {
-   mydatadir <- "~/mydata"
-   installSampleData(mydatadir)
-   cdfn  <- "~/mydata/BondPortfolio.csv"
-   ptf   <-  samplePortfolio(cdfn)
-   serverURL <- "http://ractus.ch:8080/"
-   rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
-   rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
-   cfls  <- generateEvents(,ptf,serverURL,list(rfx))
+  mydatadir <- tempdir()
+  installSampleData(mydatadir)
+  cdfn <- file.path(mydatadir, "BondPortfolio.csv")
+  ptf   <-  samplePortfolio(cdfn)
+  serverURL <- "https://dadfir3-app.zhaw.ch/"
+  rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+  rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
+  cfls  <- generateEvents(,ptf,serverURL,list(rfx))
 }
 
 }

@@ -1,4 +1,4 @@
-# import.R 
+# import.R
 # import.R - working development version of import.R
 # fnp Feb 2022, Sep 2023
 # includes xlsx2ptf function developed for FEMSdevBase by Francis Parr
@@ -55,18 +55,18 @@
 #'
 csvx2ptf <- function (fnameIn) {
   TAF::dos2unix(fnameIn)
-  
+
   # read csv ignores and strips '"' and dayCountConvention has 30E360 value
   # which gets read as numeric = Inf.
   # we assume all contract csv files will have a dayCountConvention column
   df1 <- utils::read.csv(fnameIn, colClasses = c(dayCountConvention = "character"))
-  
+
   #  remove lead space in all fields (col ops only)
   df1 <- data.frame(lapply(df1,rmLeadSpaces))
-  
+
   # convert all missing data into text "NULL"
   df1[is.na(df1)] <- "NULL"
-  
+
   # convert df2 into a list of - per contract list of terms
   cntrTermLoL <-  lapply(split(df1,seq(nrow(df1))), as.list)
   ptf <- Portfolio()
@@ -87,7 +87,7 @@ csvx2ptf <- function (fnameIn) {
 # this function will remove the leading space from a column of dates
 rmLeadSpaces <- function(vec) {
   result <- sapply(vec, function(x) {
-    if ((typeof(x) == "character") && (nchar(x) > 1) 
+    if ((typeof(x) == "character") && (nchar(x) > 1)
         && (substring(x, 1, 1) == " ")) {
       return(substring(x, 2, nchar(x)))
     } else {
@@ -262,7 +262,7 @@ installSampleData <- function (mydatadir){
                 "UST5Y_risingRates.csv", "UST5Y_steadyRates.csv",
                 "testptf1.csv", "testptf2.csv", "fmTestPortfolio.csv")) {
     pn <- paste0(mydatadir,"/",fn)
-    file.copy(from = system.file("extdata",fn, package = "FEMSdevPkg"),
+    file.copy(from = system.file("extdata",fn, package = "FEMSdevBase"),
               to = pn, overwrite = TRUE, copy.mode = TRUE, copy.date = TRUE)
   }
 }

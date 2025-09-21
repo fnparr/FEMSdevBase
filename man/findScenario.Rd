@@ -18,7 +18,7 @@ Prints the status of the operation and returns 1 if the riskFactor was found and
 The function looks up if a scenario is on the server.
 }
 \examples{
-{
+\dontrun{
 url <- "http://localhost:8082/"
 rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 putReferenceIndex(url, rfx1)

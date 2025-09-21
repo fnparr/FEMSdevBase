@@ -19,10 +19,10 @@ samplePortfolio ( cdfn) takes as input a contracts-data-filepath
 }
 \examples{
 {
-   mydatadir <- "~/mydata"
-   installSampleData(mydatadir)
-   cdfn  <- "~/mydata/BondPortfolio.csv"
-   ptf <- samplePortfolio(cdfn)
+  mydatadir <- tempdir()
+  installSampleData(mydatadir)
+  cdfn <- file.path(mydatadir, "BondPortfolio.csv")
+  ptf   <-  samplePortfolio(cdfn)
    }
 
 }

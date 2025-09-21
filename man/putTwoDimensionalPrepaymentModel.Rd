@@ -21,13 +21,13 @@ putTwoDimensionalPrepaymentModel(
 
 \item{referenceRateID}{A string containing the referenceRateID.}
 
-\item{prePaymentEventTimes}{A list of prepayment event times.}
+\item{prePaymentEventTimes}{A list of prepayment event times, when a potential prepayment should be checked.}
 
-\item{dimension1}{A list of dimension 1 values.}
+\item{dimension1}{A list of values with the difference between the market rate and the current rate being charged on the contract. Length has to equal the number of rows in 'data'.}
 
-\item{dimension2}{A list of dimension 2 values.}
+\item{dimension2}{A list of values with the age of the contract. Length has to equal the number of columns in 'data'.}
 
-\item{data}{A matrix of data points.}
+\item{data}{A matrix of data points indicating which fractional amount should be prepaid if the rate is lower than what currently is paid.}
 }
 \value{
 Prints the status of the operation and returns 1 if successful and 0 if not.
@@ -36,7 +36,7 @@ Prints the status of the operation and returns 1 if successful and 0 if not.
 The function puts a TwoDimensionalPrepaymentModel on the server.
 }
 \examples{
-{
+\dontrun{
 url <- "http://localhost:8082/"
 rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 putReferenceIndex(url, rfx1)

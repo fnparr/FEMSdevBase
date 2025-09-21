@@ -2,7 +2,7 @@ Package: FEMSdevBase
 Type: Package
 Title: Provides an API to ACTUS cashflow Generation, liquidity and income plots
 Version: 0.0.4
-Author: Francis Parr, Donat Maier, Nils Bundi 
+Author: Francis Parr, Donat Maier, Gian-Andrin Tommasini, Nils Bundi
 Maintainer: Francis Parr <fnparr@gmail.com>
 Description: 
     FEMSdevBase is similar in functional content to FEMSdevPkg except that it 
@@ -44,7 +44,11 @@ Imports:
       timeDate,
       timeSeries,
       lubridate,
-      TAF
+      TAF,
+      RQuantLib,
+      data.tree,
+      yaml,
+      zoo
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1

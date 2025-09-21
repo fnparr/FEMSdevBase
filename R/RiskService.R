@@ -30,7 +30,7 @@
 #' @include ReferenceIndex.R
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
@@ -66,7 +66,7 @@ putReferenceIndex <- function(url, riskFactor){
 #' @return Prints the status of the operation and returns 1 if the riskFactor was found and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
@@ -107,7 +107,7 @@ findReferenceIndex <- function(url, riskFactorID){
 #' dataframe if there are none on the server or the request was not successful.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
@@ -156,7 +156,7 @@ findAllReferenceIndexes <- function(url){
 #' @return Prints the status of the operation and returns 1 if successful and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
@@ -195,14 +195,14 @@ deleteReferenceIndex <- function(url, riskFactorID){
 #' @param url A string containing the server URL.
 #' @param riskFactorID A string containing the riskFactorID.
 #' @param referenceRateID A string containing the referenceRateID.
-#' @param prePaymentEventTimes A list of prepayment event times.
-#' @param dimension1 A list of dimension 1 values.
-#' @param dimension2 A list of dimension 2 values.
-#' @param data A matrix of data points.
+#' @param prePaymentEventTimes A list of prepayment event times, when a potential prepayment should be checked.
+#' @param dimension1 A list of values with the difference between the market rate and the current rate being charged on the contract. Length has to equal the number of rows in 'data'.
+#' @param dimension2 A list of values with the age of the contract. Length has to equal the number of columns in 'data'.
+#' @param data A matrix of data points indicating which fractional amount should be prepaid if the rate is lower than what currently is paid.
 #' @return Prints the status of the operation and returns 1 if successful and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
@@ -269,7 +269,7 @@ putTwoDimensionalPrepaymentModel <- function(url, riskFactorID, referenceRateID,
 #' @return Prints the status of the operation and returns 1 if the riskFactor was found and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
@@ -319,7 +319,7 @@ findTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #' dataframe if there are none on the server or the request was not successful.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
@@ -377,7 +377,7 @@ findAllTwoDimensionalPrepaymentModels <- function(url) {
 #' @return Prints the status of the operation and returns 1 if successful and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
@@ -425,7 +425,7 @@ deleteTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #' @return Prints the status of the operation and returns 1 if successful and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
@@ -515,7 +515,7 @@ putScenario <- function(url, scenarioID, referenceIndexes, prePayments2d){
 #' @return Prints the status of the operation and returns 1 if the riskFactor was found and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
@@ -568,7 +568,7 @@ findScenario <- function(url, scenarioID) {
 #' dataframe if there are none on the server or the request was not successful.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
@@ -634,7 +634,7 @@ findAllScenarios <- function(url) {
 #' @return Prints the status of the operation and returns 1 if successful and 0 if not.
 #' @import httr
 #' @export
-#' @examples{
+#' @examples \dontrun{
 #' url <- "http://localhost:8082/"
 #' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)

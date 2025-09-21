@@ -40,7 +40,7 @@ setRefClass("RiskFactor",
 setGeneric(name = "RF",
            def = function(object) standardGeneric("RF"))
 
-# FNP unclear what the intended purpose of character parameter is 
+# FNP unclear what the intended purpose of character parameter is
 setMethod(f = "RF", signature = c("character"),
           definition = function(object) {
             return(new(object))
@@ -57,6 +57,7 @@ setGeneric(name = "valueAt",
 #           })
 
 # FNP replace with as.timeSeries.ReferenceIndex(rfx)
+#' @export
 as.timeSeries.RiskFactor <- function(x) {return(x$data) }
 
 # ************************************************************
