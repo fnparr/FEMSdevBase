@@ -150,9 +150,9 @@ preJSONrfxs <- function(rfxs) {         # work directly on riskFactors list
 #' @export
 #' @importFrom utils read.csv
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #' }
 sampleReferenceIndex <- function(rxdfp, rfID, moc, base){
@@ -199,9 +199,9 @@ sampleReferenceIndex <- function(rxdfp, rfID, moc, base){
 #' @export
 #' @importFrom utils read.csv
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    rfxsfn <- paste0(mydatadir,"/RiskFactors.csv")
+#'    rfxsfn <- file.path(mydatadir,"RiskFactors.csv")
 #'    rfxsl <- sampleReferenceIndexList(rfxsfn)
 #' }
 sampleReferenceIndexList <- function(rfxsfn){

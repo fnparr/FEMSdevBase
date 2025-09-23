@@ -21,9 +21,11 @@ The function looks up if a riskFactor, in this case a TwoDimensionalPrepaymentMo
 \examples{
 \dontrun{
 url <- "http://localhost:8082/"
-rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+                             "UST5Y_fallingRates", "Ust_5Yf",100)
 putReferenceIndex(url, rfx1)
-evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+             "2016-03-01T00:00:00")
 d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 d2 <- c(0,1,2,3,5,10)
 data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -33,7 +35,8 @@ data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
               c(0, 0.01, 0.2, 0, 0, 0),
               c(0, 0, 0.1, 0, 0, 0),
               c(0, 0, 0, 0, 0, 0))
-putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+                                 d1, d2, data)
 findTwoDimensionalPrepaymentModel(url, "ppm01")
 }
 }

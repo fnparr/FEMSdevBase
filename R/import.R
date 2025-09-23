@@ -47,9 +47,9 @@
 #' @import TAF
 #' @importFrom    TAF dos2unix
 #' @examples {
-#'   datadir <- "~/mydata"
-#'   installSampleData(datadir)
-#'   fname <- "~/mydata/testptf2.csv"
+#'   mydatadir <- tempdir()
+#'   installSampleData(mydatadir)
+#'   fname <- file.path(mydatadir, "testptf2.csv")
 #'   ptf1 <- csvx2ptf(fname)
 #' }
 #'
@@ -250,7 +250,7 @@ datarow2Contract<- function(terms_df, legs_df,irow){
 #' @return NULL
 #' @export
 #'
-#' @examples  {              # directory ~/mydata must exist and be writable
+#' @examples  \dontrun{              # directory ~/mydata must exist and be writable
 #'   datadir <- "~/mydata"
 #'   installSampleData(datadir)
 #'   }

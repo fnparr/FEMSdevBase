@@ -45,9 +45,9 @@ Input csv file format:
 }
 \examples{
 {
-   mydatadir <- "~/mydata"
+   mydatadir <- tempdir()
    installSampleData(mydatadir)
-   rfxsfn <- paste0(mydatadir,"/RiskFactors.csv")
+   rfxsfn <- file.path(mydatadir,"RiskFactors.csv")
    rfxsl <- sampleReferenceIndexList(rfxsfn)
 }
 }

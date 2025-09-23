@@ -110,12 +110,12 @@ setMethod("ContractAnalysis", c(),
 #' @return    ContractAnalysis S4 object: initialized/ready for simulation step
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    cfla <- initContractAnalysis( analysisID = "cfla001",
 #'                              analysisDescription = "this_analysis_descr",
@@ -173,12 +173,12 @@ initContractAnalysis <- function (
 #' @import    jsonlite
 #' @import    httr
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    cfla <- initContractAnalysis( analysisID = "cfla001",
 #'                              analysisDescription = "this_analysis_descr",
@@ -300,14 +300,14 @@ setMethod (f = "generateEvents",
 #' @include   ScenarioAnalysis.R
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
 #'    ptfsd <- unlist(lapply(ptf$contracts,function(x){return(x$contractTerms["statusDate"])}))
 #'    ptf2015 <- Portfolio(contractList = ptf$contracts[which(ptfsd == "2015-01-01")])
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    tl1 <- Timeline("2015-01-01",3,4,8)
 #'    cfla2015 <- initContractAnalysis( analysisID = "cfla001",
@@ -374,14 +374,14 @@ setGeneric("liquidityByPeriod2vec",
 #' @return      Log summarizing whether processins was successful
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
 #'    ptfsd <- unlist(lapply(ptf$contracts,function(x){return(x$contractTerms["statusDate"])}))
 #'    ptf2015 <- Portfolio(contractList = ptf$contracts[which(ptfsd == "2015-01-01")])
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    tl1 <- Timeline("2015-01-01",3,4,8)
 #'    cfla2015 <- initContractAnalysis( analysisID = "cfla001",
@@ -450,14 +450,14 @@ setGeneric("lv2LiquidityReports",
 #' @return      Log summarizing whether processing was successful
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
 #'    ptfsd <- unlist(lapply(ptf$contracts,function(x){return(x$contractTerms["statusDate"])}))
 #'    ptf2015 <- Portfolio(contractList = ptf$contracts[which(ptfsd == "2015-01-01")])
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    tl1 <- Timeline("2015-01-01",3,4,8)
 #'    cfla2015 <- initContractAnalysis( analysisID = "cfla001",
@@ -541,14 +541,14 @@ setGeneric("eventsdf2incomeReports",
 #' @return      Log summarizing whether processing was successful
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
 #'    ptfsd <- unlist(lapply(ptf$contracts,function(x){return(x$contractTerms["statusDate"])}))
 #'    ptf2015 <- Portfolio(contractList = ptf$contracts[which(ptfsd == "2015-01-01")])
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    tl1 <- Timeline("2015-01-01",3,4,8)
 #'    cfla2015 <- initContractAnalysis( analysisID = "cfla001",
@@ -724,14 +724,14 @@ setMethod(f = "nominalValueReports",
 #' @importFrom zoo na.locf
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf   <-  samplePortfolio(cdfn)
 #'    ptfsd <- unlist(lapply(ptf$contracts,function(x){return(x$contractTerms["statusDate"])}))
 #'    ptf2015 <- Portfolio(contractList = ptf$contracts[which(ptfsd == "2015-01-01")])
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"
-#'    rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 #'    tl1 <- Timeline("2015-01-01",3,4,8)
 #'    cfla2015 <- initContractAnalysis( analysisID = "cfla001",

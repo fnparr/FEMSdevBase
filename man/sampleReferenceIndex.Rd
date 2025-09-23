@@ -34,9 +34,9 @@ Function to read a csv file with a column of yyyy-mm-dd dates, and a
 }
 \examples{
 {
-   mydatadir <- "~/mydata"
+   mydatadir <- tempdir()
    installSampleData(mydatadir)
-   rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+   rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
 }
 }

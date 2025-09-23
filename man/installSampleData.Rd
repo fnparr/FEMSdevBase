@@ -29,7 +29,7 @@ The input parameter <directory-file-path> locates a directory where the
   FEMSdevPkg package user.
 }
 \examples{
- {              # directory ~/mydata must exist and be writable
+ \dontrun{              # directory ~/mydata must exist and be writable
   datadir <- "~/mydata"
   installSampleData(datadir)
   }

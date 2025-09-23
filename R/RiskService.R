@@ -31,7 +31,8 @@
 #' @import httr
 #' @export
 #' @examples \dontrun{
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' }
@@ -67,7 +68,8 @@ putReferenceIndex <- function(url, riskFactor){
 #' @import httr
 #' @export
 #' @examples \dontrun{
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' findReferenceIndex(url, "UST5Y_fallingRates")
@@ -108,7 +110,8 @@ findReferenceIndex <- function(url, riskFactorID){
 #' @import httr
 #' @export
 #' @examples \dontrun{
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' findAllReferenceIndexes(url)
@@ -157,7 +160,8 @@ findAllReferenceIndexes <- function(url){
 #' @import httr
 #' @export
 #' @examples \dontrun{
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' url <- "http://localhost:8082/"
 #' putReferenceIndex(url, rfx1)
 #' deleteReferenceIndex(url, "UST5Y_fallingRates")
@@ -204,9 +208,11 @@ deleteReferenceIndex <- function(url, riskFactorID){
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -216,7 +222,8 @@ deleteReferenceIndex <- function(url, riskFactorID){
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' }
 putTwoDimensionalPrepaymentModel <- function(url, riskFactorID, referenceRateID, prePaymentEventTimes, dimension1, dimension2, data) {
   endpoint <- paste0(url, "addTwoDimensionalPrepaymentModel")
@@ -271,9 +278,11 @@ putTwoDimensionalPrepaymentModel <- function(url, riskFactorID, referenceRateID,
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -283,7 +292,8 @@ putTwoDimensionalPrepaymentModel <- function(url, riskFactorID, referenceRateID,
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' findTwoDimensionalPrepaymentModel(url, "ppm01")
 #' }
 findTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
@@ -321,9 +331,11 @@ findTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -333,7 +345,8 @@ findTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' findAllTwoDimensionalPrepaymentModels(url)
 #' }
 findAllTwoDimensionalPrepaymentModels <- function(url) {
@@ -379,9 +392,11 @@ findAllTwoDimensionalPrepaymentModels <- function(url) {
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -391,7 +406,8 @@ findAllTwoDimensionalPrepaymentModels <- function(url) {
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' deleteTwoDimensionalPrepaymentModel(url, "ppm01")
 #' }
 deleteTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
@@ -427,9 +443,11 @@ deleteTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -439,7 +457,8 @@ deleteTwoDimensionalPrepaymentModel <- function(url, riskFactorID) {
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' referenceIndexes <- c("UST5Y_fallingRates")
 #' prePayments2d <- c("ppm01")
 #' putScenario(url, "scn01", referenceIndexes, prePayments2d)
@@ -517,9 +536,11 @@ putScenario <- function(url, scenarioID, referenceIndexes, prePayments2d){
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -529,7 +550,8 @@ putScenario <- function(url, scenarioID, referenceIndexes, prePayments2d){
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' referenceIndexes <- c("UST5Y_fallingRates")
 #' prePayments2d <- c("ppm01")
 #' putScenario(url, "scn01", referenceIndexes, prePayments2d)
@@ -570,9 +592,11 @@ findScenario <- function(url, scenarioID) {
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -582,7 +606,8 @@ findScenario <- function(url, scenarioID) {
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' referenceIndexes <- c("UST5Y_fallingRates")
 #' prePayments2d <- c("ppm01")
 #' putScenario(url, "scn01", referenceIndexes, prePayments2d)
@@ -636,9 +661,11 @@ findAllScenarios <- function(url) {
 #' @export
 #' @examples \dontrun{
 #' url <- "http://localhost:8082/"
-#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+#' rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+#'                              "UST5Y_fallingRates", "Ust_5Yf",100)
 #' putReferenceIndex(url, rfx1)
-#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00", "2016-03-01T00:00:00")
+#' evTimes <- c("2015-03-01T00:00:00", "2015-09-01T00:00:00",
+#'              "2016-03-01T00:00:00")
 #' d1 <- c(0.03, 0.025, 0.02, 0.015, 0.01, 0.0, -0.05)
 #' d2 <- c(0,1,2,3,5,10)
 #' data <- rbind(c(0.01, 0.05, 0.1, 0.07, 0.02, 0),
@@ -648,7 +675,8 @@ findAllScenarios <- function(url) {
 #'               c(0, 0.01, 0.2, 0, 0, 0),
 #'               c(0, 0, 0.1, 0, 0, 0),
 #'               c(0, 0, 0, 0, 0, 0))
-#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes, d1, d2, data)
+#' putTwoDimensionalPrepaymentModel(url, "ppm01", "Ust_5Yf", evTimes,
+#'                                  d1, d2, data)
 #' referenceIndexes <- c("UST5Y_fallingRates")
 #' prePayments2d <- c("ppm01")
 #' putScenario(url, "scn01", referenceIndexes, prePayments2d)

@@ -38,11 +38,11 @@ If the cashflow simulation is successful, the returned cashflow events are
 }
 \examples{
 {
-   mydatadir <- "~/mydata"
+   mydatadir <- tempdir()
    installSampleData(mydatadir)
-   cdfn  <- "~/mydata/BondPortfolio.csv"
+   cdfn <- file.path(mydatadir, "BondPortfolio.csv")
    ptf <- samplePortfolio(cdfn)
-   falling_fp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+   falling_fp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
    rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates",
                                    "YC_EA_AAA",100)
    serverURL <- "https://dadfir3-app.zhaw.ch/"

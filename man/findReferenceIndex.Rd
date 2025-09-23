@@ -19,7 +19,8 @@ The function looks up if a riskFactor is on the server.
 }
 \examples{
 \dontrun{
-rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv","UST5Y_fallingRates", "Ust_5Yf",100)
+rfx1 <- sampleReferenceIndex("./inst/extdata/UST5Y_fallingRates.csv",
+                             "UST5Y_fallingRates", "Ust_5Yf",100)
 url <- "http://localhost:8082/"
 putReferenceIndex(url, rfx1)
 findReferenceIndex(url, "UST5Y_fallingRates")

@@ -375,9 +375,9 @@ setGeneric(name = "getContractIDs",
 #'               in the portfolio
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf <- samplePortfolio(cdfn)
 #'    cids <- getContractIDs(ptf)
 #'    }
@@ -418,9 +418,9 @@ setGeneric(name = "getContract",
 #'               OR NULL if no such match exists
 #' @export
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf <- samplePortfolio(cdfn)
 #'    cids <- getContractIDs(ptf)
 #'    cntr <- getContract(ptf, cids[1])
@@ -530,11 +530,11 @@ monthlyAndCumulatedValue <- function(indf){
 #' @include ContractType.R
 #' @import  ggplot2
 #' @examples {
-#'    mydatadir <- "~/mydata"
+#'    mydatadir <- tempdir()
 #'    installSampleData(mydatadir)
-#'    cdfn  <- "~/mydata/BondPortfolio.csv"
+#'    cdfn <- file.path(mydatadir, "BondPortfolio.csv")
 #'    ptf <- samplePortfolio(cdfn)
-#'    falling_fp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+#'    falling_fp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
 #'    rfx_falling <- sampleReferenceIndex(falling_fp,"UST5Y_fallingRates",
 #'                                    "YC_EA_AAA",100)
 #'    serverURL <- "https://dadfir3-app.zhaw.ch/"

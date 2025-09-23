@@ -1,14 +1,20 @@
 Package: FEMSdevBase
 Type: Package
-Title: Provides an API to ACTUS cashflow Generation, liquidity and income plots
+Title: Provides an API to ACTUS Cashflow Generation
 Version: 0.0.4
-Author: Francis Parr, Donat Maier, Gian-Andrin Tommasini, Nils Bundi
-Maintainer: Francis Parr <fnparr@gmail.com>
+Authors@R: c(person(given = "Francis", 
+            family = "Parr", role = "aut", 
+            email = "fnparr@gmail.com"), 
+            person(given = "Gian-Andrin", family = "Tommasini", 
+            role = c("aut", "cre"), email = "gtommasini@outlook.com"),
+            person(given = "Donat", family = "Maier", role = "aut"), 
+            person(given = "Nils", family = "Bundi", role = "aut"))
+Maintainer: Gian-Andrin Tommasini <gtommasini@outlook.com>
 Description: 
-    FEMSdevBase is similar in functional content to FEMSdevPkg except that it 
-    not include any shiny applications within this. This means that FEMSdevBase
-    can be imported into a shiny app which is then deployed to the Shiny.io 
-    cloud. 
+    The package FEMSdevBase is similar in functional content to FEMSdevPkg 
+    except that it not include any shiny applications within this. 
+    This means that FEMSdevBase can be imported into a shiny app which is then 
+    deployed to the Shiny.io cloud. 
     The principle exported functions are: 
     samplePortfolio( ) which reads designated csv files 
     with Bond portfolio and risk factor data, then creates and returns a 

@@ -24,12 +24,12 @@ The generateEvents(ContractAnalysis) function takes as input a S4
 }
 \examples{
 {
-   mydatadir <- "~/mydata"
+   mydatadir <- tempdir()
    installSampleData(mydatadir)
-   cdfn  <- "~/mydata/BondPortfolio.csv"
+   cdfn <- file.path(mydatadir, "BondPortfolio.csv")
    ptf   <-  samplePortfolio(cdfn)
    serverURL <- "https://dadfir3-app.zhaw.ch/"
-   rxdfp <- paste0(mydatadir,"/UST5Y_fallingRates.csv")
+   rxdfp <- file.path(mydatadir,"UST5Y_fallingRates.csv")
    rfx <- sampleReferenceIndex(rxdfp,"UST5Y_fallingRates", "YC_EA_AAA",100)
    cfla <- initContractAnalysis( analysisID = "cfla001",
                              analysisDescription = "this_analysis_descr",
