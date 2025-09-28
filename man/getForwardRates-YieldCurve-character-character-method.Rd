@@ -29,7 +29,7 @@ Function getforwardRates(YieldCurve, character, character) takes as
 \details{
 getForwardRates() uses yearFraction() which in turn depends on and includes
   RQuantLib::yearFraction, lubridate::ymd(); getForwardRates() also uses
-  function approx() from RBase to interpolate YieldCurve values
+  function approx() from stats to interpolate YieldCurve values
 
   The initial implementation of getForwardrates() restricts Tfrom and Tto to
   single date strings rather than vectors and compoundingFrequency == "NONE"

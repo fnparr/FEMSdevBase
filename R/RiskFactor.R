@@ -57,8 +57,9 @@ setGeneric(name = "valueAt",
 #           })
 
 # FNP replace with as.timeSeries.ReferenceIndex(rfx)
+#' @method as.timeSeries RiskFactor
 #' @export
-as.timeSeries.RiskFactor <- function(x) {return(x$data) }
+as.timeSeries.RiskFactor <- function(x, ...) {return(x$data) }
 
 # ************************************************************
 # preJSONts(), preJSONrf(), preJSONrfc() these functions map

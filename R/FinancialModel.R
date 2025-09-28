@@ -506,7 +506,7 @@ getNMVreports <- function(fm, scale = 1, rounding = 0) {
 showNMVreports <- function(fm, scale = 1, rounding = 0) {
   table <- getNMVreports(fm, scale, rounding)
   copy <- Clone(fm$accountsTree$root)
-  Prune(copy, prune = function(node) node$nodeID <= nrow(table))
+  Prune(copy, pruneFun = function(node) node$nodeID <= nrow(table))
   adf<- as.data.frame(copy)
   df <- data.frame(adf["levelName"])
   for ( datestr in colnames(table)) {

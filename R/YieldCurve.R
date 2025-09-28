@@ -173,7 +173,7 @@ setGeneric(name = "getForwardRates",
 #'
 #'   getForwardRates() uses yearFraction() which in turn depends on and includes
 #'   RQuantLib::yearFraction, lubridate::ymd(); getForwardRates() also uses
-#'   function approx() from RBase to interpolate YieldCurve values
+#'   function approx() from stats to interpolate YieldCurve values
 #'
 #'   The initial implementation of getForwardrates() restricts Tfrom and Tto to
 #'   single date strings rather than vectors and compoundingFrequency == "NONE"
@@ -204,7 +204,7 @@ setMethod(f = "getForwardRates", signature = c("YieldCurve", "character",
         yfFrom <- yearFraction(yc$referenceDate, Tfrom, yc$yfdcc)
         yfTo   <- yearFraction(yc$referenceDate, Tto,   yc$yfdcc)
 
-        #  2. use Rbase::approx to interpolate a yieldCurve value - these times
+        #  2. use stats::approx to interpolate a yieldCurve value - these times
         rateFrom <- interpolateYieldCurve(yc, yfFrom)
         rateTo   <- interpolateYieldCurve(yc, yfTo)
 
@@ -230,23 +230,27 @@ setMethod(f = "getForwardRates", signature = c("YieldCurve", "character",
 
 # **********************************************************
 # interpolateYieldCurve(yc, tyf)
-#     This YieldCurve method takes as input (1) yc a yieldCurve object, and
-#     (2) a numeric tenor  value tyf expressed as a fractional number of years
-#     It uses linear approximation provided by RBase function approx() to
-#     linearly interpolate from the tenorRate data points and the precomputed
-#     tenorYfs year fraction x-values saved in yc, to estimate the pa interest
-#     rate for tenor tyf. This numeric value is returned.
 # ***********************************************************
+#' interpolateYieldCurve(yc, tyf)
+#' This YieldCurve method takes as input (1) yc a yieldCurve object, and
+#' (2) a numeric tenor  value tyf expressed as a fractional number of years
+#' It uses linear approximation provided by stats function approx() to
+#' linearly interpolate from the tenorRate data points and the precomputed
+#' tenorYfs year fraction x-values saved in yc, to estimate the pa interest
+#' rate for tenor tyf. This numeric value is returned.
+#' @param yc  class=YieldCurve S4 object
+#' @param tyf numeric tenor expressed as a fractional number of years
+#' @importFrom stats approx
  interpolateYieldCurve <- function(yc,tyf) {
    tyfRate <- approx(yc$tenorYfs,yc$tenorRates, tyf,
                      method = "linear", rule = 2)
    return(tyfRate$y)  # pass back just the estimated value from (x,y) pair
  }
 
- # ***********************************************************
- # getDiscountFactor(yc, Tfrom, Tto, riskSpread )
- #    This yield curve method takes as input (1) yc a yieldCurve object, (2)
- #    a date Tfrom  in yy *************************************
+# ***********************************************************
+# getDiscountFactor(yc, Tfrom, Tto, riskSpread )
+#    This yield curve method takes as input (1) yc a yieldCurve object, (2)
+#    a date Tfrom  in yy *************************************
  getDiscountFactor <- function(yc,Tfrom,Tto,riskSpread) {
     frwdRate <- getForwardRates(yc,Tfrom,Tto)
     if(yc$compoundingFrequency == "CONTINUOUS") {
